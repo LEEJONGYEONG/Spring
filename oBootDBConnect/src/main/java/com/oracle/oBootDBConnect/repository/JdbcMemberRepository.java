@@ -8,15 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
-import javax.swing.tree.ExpandVetoException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceUtils;
-import org.springframework.stereotype.Repository;
+
 
 import com.oracle.oBootDBConnect.domain.Member1;
 
-import oracle.net.nt.ConnectDescription;
 
 
 public class JdbcMemberRepository implements MemberRepository {
