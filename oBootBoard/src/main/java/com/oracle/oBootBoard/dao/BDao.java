@@ -12,6 +12,15 @@ public interface BDao {
 	
 	public void write(String bName, String bTitle, String bContent);
 	
-	public void bContentCmd(Model model);
+	public BDto contentView(String bId);
+
+	public void modify(String bId, String bName, String bTitle, String bContent);
+
+	public BDto replyView(String bId);
+
+	public void reply(String bId, String bName, String bTitle, String bContent, String bGroup, String bStep,
+			String bIndent);
+
+	public void delete(String bId);
 
 }
