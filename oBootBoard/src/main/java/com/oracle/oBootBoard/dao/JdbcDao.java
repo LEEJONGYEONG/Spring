@@ -341,7 +341,8 @@ public class JdbcDao implements BDao {
 			conn = getConnection();
 			String query = "delete from mvc_board where bId = ?";
 			pstmt = conn.prepareStatement(query);
-			
+			pstmt.setInt(1, Integer.parseInt(bId));
+			int rn = pstmt.executeUpdate();
 			
 		} catch (Exception e) {
 			// TODO: handle exception
