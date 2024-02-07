@@ -10,6 +10,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,6 +34,7 @@ public class Member {
    @Column(name = "member_id")
    private Long id;
    
+   @NotEmpty
    @Column(name = "userName")
    private String name;
    private Long sal;
