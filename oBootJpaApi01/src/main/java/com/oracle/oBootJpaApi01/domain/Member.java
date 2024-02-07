@@ -2,6 +2,7 @@ package com.oracle.oBootJpaApi01.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -38,9 +39,10 @@ public class Member {
    @Column(name = "userName")
    private String name;
    private Long sal;
+   private String status;
    
    // 관계 설정
-   @ManyToOne
+   @ManyToOne(fetch = FetchType.EAGER)
    @JoinColumn(name = "team_id")
    private Team team;
    

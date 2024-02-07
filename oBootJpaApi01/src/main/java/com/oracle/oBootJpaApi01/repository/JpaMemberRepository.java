@@ -31,4 +31,27 @@ public class JpaMemberRepository implements MemberRepository {
 		return member.getId();
 	}
 
+	public void updateByMember(Member member) {
+		int result = 0;
+		Member member3 = em.find(Member.class, member.getId());
+		if (member3 != null) {
+			// 회원저장
+			member3.setName(member.getName());
+			member3.setSal(member.getSal());
+			result = 1;
+			System.out.println("JpaMemberRepository updateByMember Update...");
+			
+		} else {
+			result = 0;
+			System.out.println("JpaMemberRepository updateByMember No Exist...");
+		}
+		return;
+	}
+
+	public Member findByMember(Long memberId) {
+		Member member = em.find(Member.class, memberId);
+		
+		return member;
+	}
+
 }

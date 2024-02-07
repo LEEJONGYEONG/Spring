@@ -1,0 +1,28 @@
+package com.oracle.oBootMybatis01.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+
+import com.oracle.oBootMybatis01.model.Emp;
+import com.oracle.oBootMybatis01.service.EmpService;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Controller
+@RequiredArgsConstructor
+@Slf4j
+public class EmpController {
+	
+	private final EmpService es;
+	
+	public String empList(Emp emp, Model model) {
+		System.out.println("EmpController Start listEmp...");
+		// Emp 전체 Count 23
+		int totalEmp = es.totalEmp();
+		System.out.println("EmpController Start totalEmp -> " + totalEmp);
+		
+		return "list";
+	}
+
+}

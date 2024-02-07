@@ -10,4 +10,6 @@ public interface MemberRepository {
 	
 	List<Member> findAll();
 	Long save(@Valid Member member);
+	public void updateByMember(Member member);
+	public Member findByMember(Long memberId);
 }
