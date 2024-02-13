@@ -14,7 +14,19 @@
 	<a href="writeFormEmp3">writeFormEmp3 입력(Validation)</a><p>
 	
 	<h3>사원수 : ${totalEmp }</h3>
-	<c:set var="num" value="${page.total-page.start+1 }"></c:set>
+	<p>uptCnt 수정시 전달 Message : ${uptCnt } <p>
+	<p>kk3     수정시 전달 Message : ${kk3 } <p>
+	
+	<form action="listSearch3">
+		<select name="search">
+			<option value="s_job">업무조회</option>
+			<option value="s_ename">이름조회</option>
+		</select>
+		<input type="text" name="keyword" placeholder="keyword을 입력하세요">
+		<button type="submit">keyword검색</button><p>
+	</form>
+	
+	<c:set var="num" value="${page.total-page.start+1 }"/>
 	
 	<table>
 		<tr><th>번호</th><th>사번</th><th>이름</th><th>업무</th><th>급여</th></tr>
