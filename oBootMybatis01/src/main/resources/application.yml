@@ -22,13 +22,26 @@ spring:
     show_sql: true
     # Operation --> create / none / update
     hibernate:
-      ddl-auto: none  # none create
+      ddl-auto: update  # none create
  
   # view Resolver
   mvc:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
+      
+  # gmail Transfer
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: whddud612@gmail.com
+    password: kbei hjhm jtyo mwen
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls.enable: true
+      
       
 # Mybatis
 mybatis:
