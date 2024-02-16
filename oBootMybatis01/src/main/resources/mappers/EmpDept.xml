@@ -7,5 +7,9 @@
 		where e.deptno=d.deptno
 		order by empno
 	</select>
+	
+	<select id="tkDeptName" parameterType="int" resultType="java.lang.String">
+		select dname from dept where deptno = #{deptno}
+	</select>
 
 </mapper>
