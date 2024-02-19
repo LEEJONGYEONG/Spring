@@ -259,7 +259,7 @@ public class EmpController {
 		System.out.println("mailSending...");
 		String tomail = "ttaekwang3@naver.com";		// 받는 사람 이메일
 		System.out.println(tomail);
-		String setfrom = "whddud612@gmail.com";
+		String setfrom = "jim9474@gmail.com";
 		String title = "mailTransport 입니다";		// 제목
 		try {
 			// Mime 전자우편 Internet 표준 Format
@@ -310,8 +310,8 @@ public class EmpController {
 		System.out.println("EmpController writeDeptCursor Start...");
 		// 부서범위 조회
 		HashMap<String,Object> map = new HashMap<String,Object>();
-		map.put("sDeptno", 30);
-		map.put("eDeptno", 53);
+		map.put("sDeptno", 10);
+		map.put("eDeptno", 55);
 
 	    es.selListDept(map);
 	    List<Dept> deptLists = (List<Dept>) map.get("dept");
@@ -325,38 +325,36 @@ public class EmpController {
 		return "writeDeptCursor";
 	}
 	
-	// insertCeptor 시작 화면
+	// interCeptor 시작 화면
 	@RequestMapping(value = "interCeptorForm")
 	public String interCeptorForm(Model model) {
 		System.out.println("interCeptorForm Start...");
-		
 		return "interCeptorForm";
 	}
 	
-	// 2.interCeptor Number 2
+	// 2. interCeptor Member2
 	@RequestMapping(value = "interCeptor")
 	public String interCeptor(Member1 member1, Model model) {
-		System.out.println("EmpController interCeptor Test Start...");
-		System.out.println("EmpController interCeptor id -> " + member1.getId());
-		// 존재 : 1    ,    비존재 : 0
+		System.out.println("EmpController interCeptor Test Start");
+		System.out.println("EmpController interCeptor id->"+member1.getId());
+		// 존재 : 1 , 비존재 : 0
 		int memCnt = es.memCount(member1.getId());
 		
-		System.out.println("EmpController interCeptor memCnt -> " + memCnt);
+		System.out.println("EmpComtroller interCeptor memCnt->"+memCnt);
 		
 		model.addAttribute("id", member1.getId());
 		model.addAttribute("memCnt", memCnt);
 		System.out.println("interCeptor Test End");
 		
-		return "interCeptor"; // User 존재하면 User 이용 조회 Page
+		return "interCeptor";		// User 존재하면 User 이용 조회 Page
 	}
 	
 	// SampleInterceptor 내용을 받아 처리
 	@RequestMapping(value = "doMemberWrite", method = RequestMethod.GET)
 	public String doMemberWrite(Model model, HttpServletRequest request) {
-		String ID = (String)request.getSession().getAttribute("ID");
+		String ID = (String) request.getSession().getAttribute("ID");
 		System.out.println("doMemberWrite 부터 하세요");
 		model.addAttribute("id", ID);
-		
 		return "doMemberWrite";
 	}
 	
@@ -364,31 +362,28 @@ public class EmpController {
 	@RequestMapping(value = "doMemberList")
 	public String doMemberList(Model model, HttpServletRequest request) {
 		String ID = (String) request.getSession().getAttribute("ID");
-		System.out.println("doMemberList Test Start ID -> " + ID);
+		System.out.println("doMemberList Test Start ID->"+ID);
 		Member1 member1 = null;
 		// Member1 List Get Service
 		List<Member1> listMem = es.listMem(member1);
-		model.addAttribute("ID", ID); 
-		model.addAttribute("listMem", listMem); 
-		
-		return "doMemberList"; // User 존재하면 User 이용 조회 Page
+		model.addAttribute("ID", ID);
+		model.addAttribute("listMem", listMem);
+		return "doMemberList";	// User 존재하면 User 이용 조회 Page
 	}
 	
 	// ajaxForm Test 입력화면
 	@RequestMapping(value = "ajaxForm")
 	public String ajaxForm(Model model) {
 		System.out.println("ajaxForm Start...");
-		
 		return "ajaxForm";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "getDeptName")
 	public String getDeptName(Dept dept, Model model) {
-		System.out.println("deptno -> " + dept.getDeptno());
+		System.out.println("empController getDeptName deptno->"+dept.getDeptno());
 		String deptName = es.deptName(dept.getDeptno());
-		System.out.println("deptName -> " + deptName);
-		
+		System.out.println("deptName->"+deptName);
 		return deptName;
 	}
 	
@@ -398,14 +393,13 @@ public class EmpController {
 		Emp emp = new Emp();
 		System.out.println("Ajax List Test Start...");
 		// Parameter emp --> Page만 추가 Setting
-		emp.setStart(1); // 시작시 1
-		emp.setEnd(10); // 시작시 10
+		emp.setStart(1); 	// 시작시 1
+		emp.setEnd(10); 	// 시작시 10
 		
 		List<Emp> listEmp = es.listEmp(emp);
-		System.out.println("EmpController listEmpAjax listEmp.size() -> " + listEmp.size());
+		System.out.println("EmpController listEmpAjax listEmp.size()->"+listEmp.size());
 		model.addAttribute("result", "kkk");
 		model.addAttribute("listEmp", listEmp);
-		
 		return "listEmpAjaxForm";
 	}
 	
@@ -413,16 +407,15 @@ public class EmpController {
 	@RequestMapping(value = "empSerializeWrite")
 	public Map<String, Object> empSerializeWrite(@RequestBody @Valid Emp emp) {
 		System.out.println("EmpController Start...");
-		System.out.println("EmpController emp -> " + emp);
+		System.out.println("EmpController emp->"+emp);
 		int writeResult = 1;
 		
 		// int writeResult = kkk.writeEmp(emp);
-		// String follwingProStr = Integer.toString(followingPro);
+		//String followingProStr = Integer.toString(followingPro);
 		Map<String, Object> resultMap = new HashMap<>();
-		System.out.println("EmpController empSerializeWrite writeResult -> " + writeResult);
+		System.out.println("EmpController empSerializeWrite writeResult->"+writeResult);
 		
 		resultMap.put("writeResult", writeResult);
-		
 		return resultMap;
 	}
 	
@@ -432,12 +425,64 @@ public class EmpController {
 		Emp emp = new Emp();
 		System.out.println("Ajax List Test Start");
 		// Parameter emp --> Page만 추가 Setting
-		emp.setStart(1); // 시작시 1
-		emp.setEnd(15); // 시작시 15
+		emp.setStart(1); 	// 시작시 1
+		emp.setEnd(15);		// 시작시 15
 		List<Emp> listEmp = es.listEmp(emp);
 		model.addAttribute("listEmp", listEmp);
-		
 		return "listEmpAjaxForm2";
 	}
+	
+	@RequestMapping(value = "listEmpAjaxForm3")
+	public String listEmpAjaxForm3(Model model) {
+		System.out.println("listEmpAjaxForm3 Start...");
+		Emp emp = new Emp();
+		// Parameter emp --> Page만 추가 Setting
+		emp.setStart(1); 	// 시작시 1
+		emp.setEnd(15); 	// 시작시 15
+		List<Emp> listEmp = es.listEmp(emp);
+		model.addAttribute("listEmp", listEmp);
+		return "listEmpAjaxForm3";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "empListUpdate")
+	public Map<String, Object> empListUpdate(@RequestBody @Valid List<Emp> listEmp) {
+		System.out.println("EmpController empListUpdate Start...");
+		int updateResult = 1;
+		
+		for(Emp emp : listEmp) {
+			System.out.println("EmpController empListUpdate emp->"+emp);
+		}
+		// int writeResult = kkk.listUpdateEmp(emp);
+		// String followingProStr = Integer.toString(followingPro);
+		
+		System.out.println("EmpController empListUpdate writeResult->"+updateResult);
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("updateResult", updateResult);
+		return resultMap;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "transactionInsertUpdate")
+	public String transactionInsertUpdate(Emp emp, Model model) {
+		System.out.println("EmpController transactionInsertUpdate Start...");
+		// member Insert 성공과 실패
+		int returnMember = es.transactionInsertUpdate();
+		System.out.println("EmpController transactionInsertUpdate returnMember->"+returnMember);
+		String returnMemberString = String.valueOf(returnMember);
+		
+		return returnMemberString;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

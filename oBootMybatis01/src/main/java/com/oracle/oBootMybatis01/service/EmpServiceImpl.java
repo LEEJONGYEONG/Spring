@@ -135,23 +135,27 @@ public class EmpServiceImpl implements EmpService {
 
 	@Override
 	public int memCount(String id) {
-		System.out.println("EmpServiceImpl memCount id -> " + id);
-		
+		System.out.println("EmpServiceImpl memCount id->"+id);
 		return md.memCount(id);
 	}
 
 	@Override
 	public List<Member1> listMem(Member1 member1) {
 		System.out.println("EmpServiceImpl listMem Start...");
-		
 		return md.listMem(member1);
 	}
 
 	@Override
 	public String deptName(int deptno) {
 		System.out.println("EmpServiceImpl deptName Start...");
-		
 		return ed.deptName(deptno);
+	}
+
+	@Override
+	public int transactionInsertUpdate() {
+		System.out.println("EmpServiceImpl transactionInsertUpdate Start...");
+		// return md.transactionInsertUpdate();	// transaction X
+		return md.transactionInsertUpdate3();	// transaction OK
 	}
 
 	
