@@ -1,6 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oracle.team2.jyMapper">
+
+	<select id="jyTotalStudy" resultType="int">
+		SELECT Count(*) FROM study
+	</select>
 	
+	<select id="jyStudyGroupAppList" parameterType="Study" resultType="Study">
+		SELECT a.*, m.member_name
+		FROM
+		(
+		    SELECT rownum rn, s.*
+		    FROM
+		    (
+		        SELECT * FROM study ORDER BY study_key
+		    ) s
+		) a
+		JOIN member m ON a.member_key = m.member_key
+		WHERE a.rn BETWEEN #{start} AND #{end}
+	</select>
 	
+	<select id="jyCondTotalEmp" parameterType="Study" resultType="int">
+   		SELECT Count (*) FROM study
+   		<choose>
+   			<when test="search == 's_groupName'">
+                AND study_name  like '%' || #{keyword} || '%'    
+  			</when>
+  			<when test="search == 's_mentoName'">
+  				JOIN member ON study.member_key = member.member_key
+            	AND member_name like '%' || #{keyword} || '%'    
+  			</when>
+            <otherwise>
+                AND study_name  like '%'   
+            </otherwise>
+        </choose>
+   </select>
+   
+   <select id="jyStudyGroupAppSearch" parameterType="Study" resultType="Study">
+   		SELECT a.*, m.member_name
+		FROM
+		(
+		    SELECT rownum rn, s.*
+		    FROM
+		    (
+		        SELECT * FROM study ORDER BY study_key
+		    ) s
+		) a
+		JOIN member m ON a.member_key = m.member_key
+		WHERE a.rn BETWEEN #{start} AND #{end}
+   		<choose>
+   			<when test="search == 's_groupName">
+                AND study_name  like '%' || #{keyword} || '%'    
+  			</when>
+  			<when test="search == 's_mentoName'">
+            	AND member_name like '%' || #{keyword} || '%'    
+  			</when>
+            <otherwise>
+                AND study_name  like '%'   
+            </otherwise>
+        </choose>   
+   </select>
+   
+   <select id="jyTotalStFile" resultType="int">
+		SELECT Count(*) FROM stfile
+	</select>
+	
+	<select id="jyStFileList" parameterType="StFile" resultType="StFile">
+		SELECT *
+   		FROM
+   		(
+   			SELECT rownum rn , a.*
+   			FROM 
+   				(SELECT * FROM stfile ORDER BY stfile_key) a
+   		)
+   		WHERE rn BETWEEN #{start} and #{end}
+	</select>
+
 </mapper>

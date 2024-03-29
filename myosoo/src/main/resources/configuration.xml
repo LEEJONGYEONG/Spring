@@ -3,7 +3,8 @@
 
 <configuration>
 	<typeAliases>
-		<!-- <typeAlias alias="Alarm"	type="com.oracle.team2.model.Alarm"/> -->
-		
+		<typeAlias alias="Member"	 type="com.oracle.team2.model.Member"/>
+		<typeAlias alias="Study" type="com.oracle.team2.model.Study"/>		
+		<typeAlias alias="StFile" type="com.oracle.team2.model.StFile"/>		
 	</typeAliases>
 </configuration>

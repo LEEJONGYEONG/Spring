@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학습자료 상세</title>
+    <th:block th:replace="~{fragments/configure::configure}"></th:block>
+    <style>
+        table {
+            border-collapse: separate;
+            border-spacing: 0 8px; /* 각 셀 사이의 수직 간격 설정, 필요에 따라 조절하세요 */
+        }
+
+        th, td {
+            border-bottom: 1px solid #e5e7eb; /* 각 셀의 하단에 구분선을 추가합니다 */
+        }
+
+        th, td {
+            border-right: 1px solid #e5e7eb; /* 각 th 요소의 오른쪽 테두리를 추가하여 구분선을 만듭니다 */
+        }
+
+        th, td:last-child {
+            border-right: none; /* 마지막 th 요소에는 오른쪽 테두리를 추가하지 않습니다 */
+        }
+    </style>
+</head>
+<body>
+	<!-- header -->
+   	<div class="header"><th:block th:replace="~{fragments/header::headerFragment}"></th:block></div>
+   	<div class="bg-blue-100 p-6 max-w-5xl mx-auto rounded-lg">      
+        <div class="pt-4">
+            <table class="text-sm text-center text-gray-500 ">
+                <tbody class="text-xs text-gray-700 uppercase bg-gray-50">
+                    <tr>
+                        <td scope="col" class="py-3">학습자료명</td>
+                        <td class="py-3 w-full"></td>
+                    </tr>
+                    <tr>
+                        <td scope="col" class="py-3">등록일자</td>
+                        <td class="py-3 w-full"></td>
+                    </tr>
+                    <tr>
+                    	 <td scope="col" class="py-3">자료구분</td>
+                        <td class="py-3 "></td>
+                    </tr>
+                    <tr>
+                    	<td scope="col" class="py-3">자료유형</td>
+                        <td class="py-3 "></td>
+                    </tr>
+                    <tr>
+                    	<td scope="col" class="py-3">서비스 구분</td>
+                        <td class="py-3 "></td>
+                    </tr>
+                    <tr>
+                    	 <td scope="col" class="py-3">자료파일 URL</td>
+                        <td class="py-3 "></td>
+                    </tr>
+                    <tr>
+                    	 <td scope="col" class="py-3">썸네일</td>
+                        <td class="py-3 "></td>
+                    </tr>
+                    <tr>
+                    	 <td scope="col" class="py-3 px-9 h-60">자료내용</td>
+                    	 <td class="py-3"></td>
+                    </tr>
+                    	
+                </tbody>
+            </table>
+            <div class="bg-blue-100 p-6 max-w-2xl mx-auto rounded-lg text-center">
+            	<button class="bg-blue-500 text-white px-4 py-1 rounded">수정하기</button>
+                <button class="bg-red-500 text-white px-4 py-1 rounded">삭제하기</button>
+           	</div>
+        </div>
+    </div>
+	<div class="footer"><th:block th:replace="~{fragments/footer::footerFragment}"></th:block></div>
+</body>
+</html>

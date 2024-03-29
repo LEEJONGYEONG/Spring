@@ -1,0 +1,141 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="bg-blue-100 p-6 max-w-2xl mx-auto rounded-lg">
+               
+        <div class="pt-4">
+ 
+            <div class="flex items-center justify-between my-4">
+                <div class="flex items-center">
+                    <label class="block text-sm font-medium mb-1 " for="period">숙제명</label>
+                    <select name="" id="" class="ml-2">
+                        <option> 전체 </option>
+                    </select>
+                </div>
+                <div>
+                    <button class="bg-blue-500 text-white px-4 py-1 rounded">조회하기</button>
+                </div>
+            </div>
+            <table class="w-full text-sm text-left text-gray-500 ">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+                    <tr>
+                        <th scope="col" class="py-3 px-6"></th>
+                        <th scope="col" class="py-3 px-6">숙제명</th>
+                        <th scope="col" class="py-3 px-6">숙제내용</th>
+                        <th scope="col" class="py-3 px-6">레벨</th>
+                        <th scope="col" class="py-3 px-6">학습그룹</th>
+                        <th scope="col" class="py-3 px-6">제출기한</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="bg-white border-b ">
+                        <td ><input class="ml-6" type="checkbox" id="checkbox1" name="checkbox1"></td>
+                        <td class="py-4 px-6">숙제명1</td>
+                        <td class="py-4 px-6">숙제내용1</td>
+                        <td class="py-4 px-6">그룹</td>
+                        <td class="py-4 px-6">레벨1</td>
+                        <td class="py-4 px-6">제출기한1</td>
+                     
+                    </tr>
+                    <!-- Repeat for each row -->
+                    <tr class="bg-white border-b">
+                        <td><input class="ml-6"  type="checkbox" id="checkbox1" name="checkbox1"></td>
+                        <td class="py-4 px-6">숙제명1</td>
+                        <td class="py-4 px-6">숙제내용1</td>
+                        <td class="py-4 px-6">그룹</td>
+                        <td class="py-4 px-6">레벨1</td>
+                        <td class="py-4 px-6">제출기한1</td>
+                        
+                    </tr>
+                    <!-- Repeat for each row -->
+                    <tr class="bg-white border-b">
+                        <td><input class="ml-6" type="checkbox" id="checkbox1" name="checkbox1"></td>
+                        <td class="py-4 px-6">숙제명1</td>
+                        <td class="py-4 px-6">숙제내용1</td>
+                        <td class="py-4 px-6">그룹</td>
+                        <td class="py-4 px-6">레벨1</td>
+                        <td class="py-4 px-6">제출기한1</td>
+                     
+                    </tr>
+                    <!-- Repeat for each row -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="border-t-2 pt-4">
+ 
+            <div class="flex items-center justify-between my-4">
+                <div class="flex items-center">
+                    <label class="block text-sm font-medium mb-1 " for="period">학습그룹</label>
+                    <select name="" id="" class="ml-2">
+                        <option> 강남 초급 </option>
+                    </select>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button class="bg-blue-500 text-white px-4 py-1 rounded ">대상 조회</button>
+                    <button class="bg-blue-500 text-white px-4 py-1 rounded">전체 선택</button>
+                    <button class="bg-blue-500 text-white px-4 py-1 rounded">전송 하기</button>
+                </div>
+            </div>
+            <table class="w-full text-sm text-left text-gray-500 ">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+                    <tr>
+                        <th scope="col" class="py-3 px-6"></th>
+                        <th scope="col" class="py-3 px-6">학습자명</th>
+                        <th scope="col" class="py-3 px-6">전화번호</th>
+                        <th scope="col" class="py-3 px-6">현재레벨</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="bg-white border-b ">
+                        <td ><input class="ml-6" type="checkbox" id="checkbox1" name="checkbox1"></td>
+                        <td class="py-4 px-6">이름</td>
+                        <td class="py-4 px-6">전화번호</td>
+                        <td class="py-4 px-6">레벨1</td>                    
+                    </tr>
+                    <!-- Repeat for each row -->
+                    <tr class="bg-white border-b ">
+                        <td ><input class="ml-6" type="checkbox" id="checkbox1" name="checkbox1"></td>
+                        <td class="py-4 px-6">이름</td>
+                        <td class="py-4 px-6">전화번호</td>
+                        <td class="py-4 px-6">레벨1</td>                    
+                    </tr>
+                    <!-- Repeat for each row -->
+                    <tr class="bg-white border-b ">
+                        <td ><input class="ml-6" type="checkbox" id="checkbox1" name="checkbox1"></td>
+                        <td class="py-4 px-6">이름</td>
+                        <td class="py-4 px-6">전화번호</td>
+                        <td class="py-4 px-6">레벨1</td>                    
+                    </tr>
+                    <tr class="bg-white border-b ">
+                        <td ><input class="ml-6" type="checkbox" id="checkbox1" name="checkbox1"></td>
+                        <td class="py-4 px-6">이름</td>
+                        <td class="py-4 px-6">전화번호</td>
+                        <td class="py-4 px-6">레벨1</td>                    
+                    </tr>
+                    <tr class="bg-white border-b ">
+                        <td ><input class="ml-6" type="checkbox" id="checkbox1" name="checkbox1"></td>
+                        <td class="py-4 px-6">이름</td>
+                        <td class="py-4 px-6">전화번호</td>
+                        <td class="py-4 px-6">레벨1</td>                    
+                    </tr>
+                    <!-- Repeat for each row -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+</body>
+</html>

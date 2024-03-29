@@ -1,8 +1,252 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns="http://www.thymeleaf.org">
- 
-<th:block th:fragment="headerFragment">
-	
-<th:block>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
+<th:block th:fragment="headerFragment">
+	<nav>
+		<div class="container mx-auto p-4">
+			<div
+				class="flex items-center justify-between border-b-2 border-green-500 pb-2">
+				<div>이미지</div>
+				<div class="flex items-center">
+					<h1 class="text-xl font-bold text-green-800">학습 관리시스템</h1>
+				</div>
+				<div class="flex">
+					<a th:if="${session.member_id == null}" href="loginViews" class="text-sm text-green-800">로그인</a>
+					<a href="logout" th:if="${session.member_id}" th:text="${session.member_id+ '님 | 로그아웃'}"></a>
+					
+				</div>
+			</div>
+		</div>
+
+		<div class="container mx-auto p-4">
+			<nav class="flex justify-between mt-4 gap-2 pb-2">
+				<a id="colorChangeButton1" href="#"
+					class="w-1/5 bg-green-500 text-white text-center py-2 rounded-lg hover:bg-green-300 hover:text-green-800">
+					이용 안내 </a>
+				<div id="guideElement"
+					style="display: none; position: absolute; background-color: #f9f9f9; min-width: 290px; box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); padding: 12px 16px; z-index: 1; top: 143px;">
+					<p>
+						<a href="#">사용 가이드</a>
+					</p>
+					<hr class="my-1 border-gray-300">
+					<p>
+						<a href="#">사이트 이용 안내</a>
+					</p>
+					<hr class="my-1 border-gray-300">
+					<p>
+						<a href="#">바둑 콘텐츠 소개</a>
+					</p>
+					<hr class="my-1 border-gray-300">
+					<p>
+						<a href="#">공지사항</a>
+					</p>
+					<hr class="my-1 border-gray-300">
+					<p>
+						<a href="#">문의 / FAQ</a>
+					</p>
+				</div>
+
+				<a id="colorChangeButton2" href="list.html"
+					class="w-1/5 bg-green-500 text-white text-center py-2 rounded-lg hover:bg-green-300 hover:text-green-800">구독서비스</a>
+				<div id="subscriptionDropdown"
+					style="display: none; position: absolute; background-color: #f9f9f9; min-width: 290px; box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); padding: 12px 16px; z-index: 1; top: 143px;"
+					>
+					
+					<p>
+						<a href="list.html">게임 콘텐츠 검색 및 구독 신청</a>
+					</p>
+					<hr class="my-1 border-gray-300">
+					<p>
+						<a href="#">내 구독 상품 조회</a>
+					</p>
+				</div>
+				<a id="colorChangeButton3"
+					class="w-1/5 bg-green-500 text-white text-center py-2 rounded-lg hover:bg-green-300 hover:text-green-800">학습
+					서비스</a>
+				<div id="educational_Services"
+					style="display: none; position: absolute; background-color: #f9f9f9; min-width: 290px; box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); padding: 12px 16px; z-index: 1; top: 143px;"
+					>
+					<p>
+                  <a href="studyGroupApplication">학습 그룹 가입 신청</a>
+               </p>
+					<hr class="my-1 border-gray-300">
+					<p>
+						<a href="#">내 숙제 조회</a>
+					</p>
+
+				</div>
+				<a id="colorChangeButton4"
+					class="w-1/5 bg-green-500 text-white text-center py-2 rounded-lg hover:bg-green-300 hover:text-green-800">교육자마당</a>
+				<div id="educational_Plaza"
+					style="display: none; position: absolute; background-color: #f9f9f9; min-width: 290px; box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); padding: 12px 16px; z-index: 1; top: 143px;"
+					>
+					<p>
+						<a href="#">학습 그룹 관리</a>
+					</p>
+					<hr class="my-1 border-gray-300">
+					<p>
+						<a href="#">학습 그룹 등록 (게임콘텐츠 검색)</a>
+					</p>
+					<hr class="my-1 border-gray-300">
+					<p>
+						<a href="#"> 학습 그룹 조회</a>
+					</p>
+					<hr class="my-1 border-gray-300">
+					<p>
+						<a href="#"> 학습 그룹 가입 승인</a>
+					</p>
+					<hr class="my-1 border-gray-300">
+					<p>
+						<a href="#">숙제 전송</a>
+					</p>
+					<hr class="my-1 border-gray-300">
+					<p>
+						<a href="#">숙제 등록</a>
+					</p>
+					<hr class="my-1 border-gray-300">
+					<p>
+						<a href="#">숙제 평가</a>
+					</p>
+				</div>
+				<a id="colorChangeButton5"
+					class="w-1/5 bg-green-500 text-white text-center py-2 rounded-lg hover:bg-green-300 hover:text-green-800">운영마당</a>
+				<div id="Operations_Yard"
+					style="display: none; position: absolute; background-color: #f9f9f9; min-width: 290px; box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); padding: 12px 16px; z-index: 1; top: 143px;"
+					>
+					<p>
+						<a href="#">게임콘텐츠 등록</a>
+					</p>
+					<hr class="my-1 border-gray-300">
+					<p>
+						<a href="#">게임콘텐츠 조회</a>
+					</p>
+					<hr class="my-1 border-gray-300">
+					<p>
+	                  <a href="stFileInsertView">학습자료 등록</a>
+	               </p>
+	               <hr class="my-1 border-gray-300">
+	               <p>
+	                  <a href="stFileListView">학습자료 조회</a>
+	               </p>
+					<hr class="my-1 border-gray-300">
+					<p>
+						<a href="#">공지사항 등록</a>
+					</p>
+					<hr class="my-1 border-gray-300">
+					<p>
+						<a href="#">문의사항 등록</a>
+					</p>
+					<hr class="my-1 border-gray-300">
+					<p>
+						<a href="#">매출 관리</a>
+					</p>
+					<hr class="my-1 border-gray-300">
+					<p>
+						<a href="#">회원 관리</a>
+					</p>
+				</div>
+
+			</nav>
+		</div>
+	</nav>
+
+	<script>
+		// Get the '이용 안내' element
+		var guideElement = document.getElementById('colorChangeButton1');
+
+		// Append the dropdown menu to the '이용 안내' element
+		guideElement.appendChild(document.getElementById('guideElement'));
+
+		// Show the dropdown menu when mouse hovers over '이용 안내'
+		guideElement.addEventListener('mouseover', function() {
+			document.getElementById('guideElement').style.display = 'block';
+		});
+
+		// Hide the dropdown menu when mouse leaves '이용 안내'
+		guideElement.addEventListener('mouseout', function() {
+			document.getElementById('guideElement').style.display = 'none';
+		});
+
+		// Get the '구독 서비스' element
+		var subscriptionElement2 = document.getElementById('colorChangeButton2');
+
+		// Append the dropdown menu to the '구독 서비스' element
+		subscriptionElement2.appendChild(document
+				.getElementById('subscriptionDropdown'));
+
+		// Show the dropdown menu when mouse hovers over '구독 서비스'
+		subscriptionElement2
+				.addEventListener(
+						'mouseover',
+						function() {
+							document.getElementById('subscriptionDropdown').style.display = 'block';
+						});
+
+		// Hide the dropdown menu when mouse leaves '구독 서비스'
+		subscriptionElement2
+				.addEventListener(
+						'mouseout',
+						function() {
+							document.getElementById('subscriptionDropdown').style.display = 'none';
+						});
+
+		// 학습 서비스
+		var subscriptionElement3 = document.getElementById('colorChangeButton3');
+
+		subscriptionElement3.appendChild(document
+				.getElementById('educational_Services'));
+
+		subscriptionElement3
+				.addEventListener(
+						'mouseover',
+						function() {
+							document.getElementById('educational_Services').style.display = 'block';
+						});
+
+		subscriptionElement3
+				.addEventListener(
+						'mouseout',
+						function() {
+							document.getElementById('educational_Services').style.display = 'none';
+						});
+
+		// 교육자 마당
+		var subscriptionElement4 = document.getElementById('colorChangeButton4');
+
+		subscriptionElement4.appendChild(document
+				.getElementById('educational_Plaza'));
+
+		subscriptionElement4
+				.addEventListener(
+						'mouseover',
+						function() {
+							document.getElementById('educational_Plaza').style.display = 'block';
+						});
+
+		subscriptionElement4
+				.addEventListener(
+						'mouseout',
+						function() {
+							document.getElementById('educational_Plaza').style.display = 'none';
+						});
+
+		// 운영 마당
+		var subscriptionElement5 = document.getElementById('colorChangeButton5');
+
+		subscriptionElement5.appendChild(document
+				.getElementById('Operations_Yard'));
+
+		subscriptionElement5.addEventListener('mouseover', function() {
+			document.getElementById('Operations_Yard').style.display = 'block';
+		});
+
+		subscriptionElement5.addEventListener('mouseout', function() {
+			document.getElementById('Operations_Yard').style.display = 'none';
+		});
+		
+	</script>
+
+</th:block>
 </html>
+
+ 

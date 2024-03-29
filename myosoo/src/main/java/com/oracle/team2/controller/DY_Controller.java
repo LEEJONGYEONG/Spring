@@ -13,10 +13,4 @@ public class DY_Controller {
 	private final DY_Service_Interface  dys;
 	private final CommonController cc;
 	
-	
-	@RequestMapping(value = "loginView")
-	public String login() {
-		
-		return "DY_views/login";
-	}
 }

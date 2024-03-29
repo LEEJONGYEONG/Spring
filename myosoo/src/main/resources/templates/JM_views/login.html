@@ -36,7 +36,7 @@ body {
 				<div class="flex items-center justify-between mb-6">
 					<button
 						class="bg-blue-500 w-full hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-						type="button">로그인</button>
+						type="button" onclick="login()">로그인</button>
 				</div>
 				<div class="flex items-center justify-between mb-6">
 
@@ -55,6 +55,7 @@ body {
 						<a href="#"> 회원가입 </a>
 					</div>
 				</div>
+				<div id="loginMessage" class="text-red-500 text-sm"></div> <!-- 메시지를 표시할 영역 -->
 
 			</div>
 			<div class="text-center text-gray-500 text-xs mt-4">COPYRIGHT©
@@ -62,6 +63,39 @@ body {
 		</div>
 	</div>
 
-	</div>
+	<script>
+        function login() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            var loginMessage = document.getElementById('loginMessage');
+            
+         	// 폼 데이터 생성
+            var formData = new FormData();
+            formData.append('username', username);
+            formData.append('password', password);
+            
+         	// AJAX를 사용하여 서버로 POST 요청 보내기
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/login', true); // 로그인 요청을 처리할 컨트롤러 경로 '/login'을 지정해야 합니다.
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // 서버 응답을 확인하고 로그인 성공/실패 여부를 처리합니다.
+                    if (xhr.responseText === 'success') {
+                    	window.location.href = '/index'; // 로그인 성공 시 index 페이지로 이동
+                	} else {
+                    	loginMessage.textContent = '로그인에 실패했습니다. 다시 시도하세요.';
+                	}
+                    // 여기에 필요한 로직을 추가하세요.
+                } else {
+                    loginMessage.textContent = '로그인에 실패했습니다. 다시 시도하세요.';
+                }
+            };
+            xhr.onerror = function() {
+                loginMessage.textContent = '서버에 연결할 수 없습니다.';
+            };
+            xhr.send(formData);
+        }
+    </script>
+	
 </body>
 </html>

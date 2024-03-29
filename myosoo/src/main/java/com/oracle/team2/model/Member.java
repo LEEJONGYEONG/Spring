@@ -12,12 +12,12 @@ public class Member {
 	private String member_id; //아이디
 	private String member_pw; //패스워드
 	private String member_birth; //생년월일
-	private String member_mtel; //휴대폰번호
-	private int makey; //회원구분대분류
-	private int mikey; //회원구분소분류
+	private String member_tel; //휴대폰번호
+	private int member_makey; //회원구분대분류
+	private int member_mikey; //회원구분소분류
 	private String member_gender; //성별
-	private String member_tel; //전화번호
-	private String member_is; //수신동의구분
 	private Date member_regdate; //가입일자
+	private Date member_update; // 수정일자
 	private int member_isfree; //자격(무료 0/ 무료 1)
+	private int member_isdelete; // 삭제여부
 }

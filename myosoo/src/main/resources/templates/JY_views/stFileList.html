@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학습자료 등록</title>
+    <th:block th:replace="~{fragments/configure::configure}"></th:block>
+    <style>
+        table {
+            border-collapse: separate;
+            border-spacing: 0 8px; /* 각 셀 사이의 수직 간격 설정, 필요에 따라 조절하세요 */
+        }
+
+        th, td {
+            border-bottom: 1px solid #e5e7eb; /* 각 셀의 하단에 구분선을 추가합니다 */
+        }
+
+        th, td {
+            border-right: 1px solid #e5e7eb; /* 각 th 요소의 오른쪽 테두리를 추가하여 구분선을 만듭니다 */
+        }
+
+        th, td:last-child {
+            border-right: none; /* 마지막 th 요소에는 오른쪽 테두리를 추가하지 않습니다 */
+        }
+    </style>
+</head>
+<body>
+	<!-- header -->
+   	<div class="header"><th:block th:replace="~{fragments/header::headerFragment}"></th:block></div>
+    <div class="bg-blue-100 p-6 max-w-7xl mx-auto rounded-lg">      
+        <div class="pt-4">
+            <div class="flex items-center justify-between my-4">
+                <div class="flex items-center">
+                    <label class="block text-sm font-medium mb-1 w-48 " for="search">학습자료명</label>
+                    <input type="text" id="search" class="ml-2 w-full border-2 p-2 rounded" placeholder="학습자료명을 입력하세요">
+                    <select name="stFileType" id="stFileType" class="ml-2">
+                    	<option selected disabled>자료구분</option>
+                        <option>튜토리얼</option>
+                        <option>교육영상</option>
+                    </select>
+                    <select name="stFileCategory" id="stFileCategory" class="ml-2">
+                    	<option selected disabled>자료유형</option>
+                        <option>웹사이트</option>
+                        <option>동영상</option>
+                        <option>교재</option>
+                    </select>
+                    <select name="serviceType" id="serviceType" class="ml-2">
+                    	<option selected disabled>서비스구분</option>
+                        <option>full(유료)</option>
+                        <option>short(무료)</option>
+                    </select>
+                </div>
+                <div>
+                    <button class="bg-blue-500 text-white px-4 py-1 rounded">조회하기</button>
+                </div>
+            </div>
+            <table class="w-full text-sm text-center text-gray-500 mb-4">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+                    <tr>
+                        <th scope="col" class="py-3 px-6"></th>
+                        <th scope="col" class="py-3 px-6">썸네일</th>
+                        <th scope="col" class="py-3 px-6">학습자료명</th>
+                        <th scope="col" class="py-3 px-6">자료구분</th>
+                        <th scope="col" class="py-3 px-6">자료유형</th>
+                        <th scope="col" class="py-3 px-6">서비스구분</th>
+                        <th scope="col" class="py-3 px-6">등록일자</th>
+                    </tr>
+                </thead>
+                <tbody>
+                	<th:block th:each="stFile : ${listStFile}">
+	                    <tr class="bg-white border-b ">
+	                        <td><button id="detailButton" class="bg-blue-500 text-white px-4 py-1 rounded" th:onclick="|window.location.href='stFileDetailView'|">상세</button></td>
+	                        <td class="py-4 px-6"><p th:text="${stFile.stfile_img}"></p></td>
+	                        <td class="py-4 px-6"><p th:text="${stFile.stFile_name}"></p></td>
+	                        <td class="py-4 px-6">
+	                        	<p th:if="${stFile.stfile_mikey == 10}" th:text="'튜토리얼'"></p>
+    							<p th:if="${stFile.stfile_mikey == 20}" th:text="'교육영상'"></p>
+    						</td>
+	                        <td class="py-4 px-6">
+	                        	<p th:if="${stFile.stfile_method == 0}" th:text="'동영상'"></p>
+	                        	<p th:if="${stFile.stfile_method == 1}" th:text="'교재'"></p>
+	                        	<p th:if="${stFile.stfile_method == 2}" th:text="'웹사이트'"></p>
+	                        </td>
+	                        <td class="py-4 px-6">
+	                        	<p th:if="${stFile.stfilesv_mikey == 10}" th:text="'full(유료)'"></p>
+	                        	<p th:if="${stFile.stfilesv_mikey == 20}" th:text="'short(무료)'"></p>
+	                        </td>
+	                        <td class="py-4 px-6"><p th:text="${#dates.format(stFile.stfile_regdate, 'yyyy.MM.dd')}"></p></td>
+	                    </tr>
+	             	</th:block>
+                </tbody>
+            </table>
+            <nav aria-label="Page navigation example" class="text-center">
+			    <ul class="inline-flex -space-x-px text-sm">
+			        <li th:if="${page.startPage > page.pageBlock}">
+			            <a th:href="@{stFileListView(currentPage=${page.startPage - page.pageBlock})}"
+			               class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+			                이전
+			            </a>
+			        </li>
+			        <li th:each="i : ${#numbers.sequence(page.startPage, page.endPage)}">
+			            <a th:href="@{stFileListView(currentPage=${i})}"
+			               class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+			                [[${i}]]
+			            </a>
+			        </li>
+			        <li th:if="${page.endPage < page.totalPage}">
+			            <a th:href="@{stFileListView(currentPage=${page.startPage + page.pageBlock})}"
+			               class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+			                다음
+			            </a>
+			        </li>
+			    </ul>
+			</nav>
+        </div>
+    </div>
+    <div class="footer"><th:block th:replace="~{fragments/footer::footerFragment}"></th:block></div>
+</body>
+</html>
