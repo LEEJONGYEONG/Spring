@@ -6,6 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>학습자료 상세</title>
     <th:block th:replace="~{fragments/configure::configure}"></th:block>
+    <script>
+	    function showConfirmation(stfileKey) {
+	        // 사용자에게 재확인 메시지 표시
+	        var confirmation = confirm("정말로 삭제하시겠습니까?");
+	        
+	        // 확인 버튼을 누른 경우
+	        if (confirmation) {
+	            // 삭제 요청 URL 생성
+	            var deleteUrl = 'stFileDelete?stfile_key=' + stfileKey;
+	            // 해당 URL로 이동
+	            window.location.href = deleteUrl;
+	        }
+	    }
+	</script>
     <style>
         table {
             border-collapse: separate;
@@ -31,45 +45,67 @@
    	<div class="bg-blue-100 p-6 max-w-5xl mx-auto rounded-lg">      
         <div class="pt-4">
             <table class="text-sm text-center text-gray-500 ">
-                <tbody class="text-xs text-gray-700 uppercase bg-gray-50">
+                <tbody class="text-base text-gray-700 uppercase bg-gray-50">
                     <tr>
-                        <td scope="col" class="py-3">학습자료명</td>
-                        <td class="py-3 w-full"></td>
+                        <td scope="col" class="py-4 text-xs">학습자료명</td>
+                        <td class="py-3 w-full"><p th:text="${detailStFile.stfile_name}"></p></td>
                     </tr>
                     <tr>
-                        <td scope="col" class="py-3">등록일자</td>
-                        <td class="py-3 w-full"></td>
+                        <td scope="col" class="py-4 text-xs">등록일자</td>
+                        <td class="py-3 w-full"><p th:text="${#dates.format(detailStFile.stfile_regdate, 'yyyy.MM.dd HH:mm')}"></p></td>
                     </tr>
                     <tr>
-                    	 <td scope="col" class="py-3">자료구분</td>
-                        <td class="py-3 "></td>
+                    	 <td scope="col" class="py-4 text-xs">자료구분</td>
+                        <td class="py-3 ">
+                        	<p th:if="${detailStFile.stfile_mikey == 10}" th:text="'튜토리얼'"></p>
+    						<p th:if="${detailStFile.stfile_mikey == 20}" th:text="'교육영상'"></p>
+                        </td>
                     </tr>
                     <tr>
-                    	<td scope="col" class="py-3">자료유형</td>
-                        <td class="py-3 "></td>
+                    	<td scope="col" class="py-4 text-xs">자료유형</td>
+                        <td class="py-3 ">
+                        	<p th:if="${detailStFile.stfile_method == 0}" th:text="'동영상'"></p>
+	                        <p th:if="${detailStFile.stfile_method == 1}" th:text="'교재'"></p>
+	                        <p th:if="${detailStFile.stfile_method == 2}" th:text="'웹사이트'"></p>
+                        </td>
                     </tr>
                     <tr>
-                    	<td scope="col" class="py-3">서비스 구분</td>
-                        <td class="py-3 "></td>
+                    	<td scope="col" class="py-4 text-xs">서비스 구분</td>
+                        <td class="py-3 ">
+                        	<p th:if="${detailStFile.stfilesv_mikey == 10}" th:text="'full(유료)'"></p>
+	                        <p th:if="${detailStFile.stfilesv_mikey == 20}" th:text="'short(무료)'"></p>
+                        </td>
                     </tr>
                     <tr>
-                    	 <td scope="col" class="py-3">자료파일 URL</td>
-                        <td class="py-3 "></td>
+                    	 <td scope="col" class="py-4 text-xs">첨부파일명</td>
+                        <td class="py-3 "><p th:text="${detailStFile.stfile_file}"></p></td>
                     </tr>
                     <tr>
-                    	 <td scope="col" class="py-3">썸네일</td>
-                        <td class="py-3 "></td>
+                    	 <td scope="col" class="py-4 text-xs">첨부파일 주소</td>
+                        <td class="py-3 "><p th:text="${detailStFile.stfile_fileaddr}"></p></td>
                     </tr>
                     <tr>
-                    	 <td scope="col" class="py-3 px-9 h-60">자료내용</td>
-                    	 <td class="py-3"></td>
+                    	 <td scope="col" class="py-4 h-40 text-xs">썸네일</td>
+                        <td class="py-3 flex items-center justify-center"><img th:src="'data:image/png;base64,' + ${detailStFile.stfile_imgEncod}" alt="image" class="w-72 h-52 object-cover rounded"></td>
+                    </tr>
+                    <tr>
+                    	<td scope="col" class="py-4 px-9 h-80 text-xs">자료내용</td>
+                    	<td class="py-3 text-sm text-left align-top">
+                    	 	<p id="stFileContent" th:text="${detailStFile.stfile_content}" class="px-2 w-100% break-all"></p>
+						</td>
                     </tr>
                     	
                 </tbody>
             </table>
             <div class="bg-blue-100 p-6 max-w-2xl mx-auto rounded-lg text-center">
-            	<button class="bg-blue-500 text-white px-4 py-1 rounded">수정하기</button>
-                <button class="bg-red-500 text-white px-4 py-1 rounded">삭제하기</button>
+            	<button class="bg-blue-500 text-white px-4 py-1 rounded"
+            		th:onclick="|window.location.href='stFileUpdateForm?stfile_key=${stFile.stfile_key}'|">
+            		수정하기
+            	</button>
+                <button class="bg-red-500 text-white px-4 py-1 rounded" 
+                	th:onclick="|showConfirmation('${stFile.stfile_key}')|">
+                		삭제하기
+                </button>
            	</div>
         </div>
     </div>

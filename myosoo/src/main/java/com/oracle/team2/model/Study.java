@@ -20,7 +20,10 @@ public class Study {
 	
 	// 조회용
 	private String search;
-	private String keyword;
+	private String keyword1;
+	private String keyword2;
+	private int      condition;
+
 	private String pageNum;
 	private int start;
 	private int end;

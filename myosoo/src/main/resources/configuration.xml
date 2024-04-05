@@ -6,5 +6,6 @@
 		<typeAlias alias="Member"	 type="com.oracle.team2.model.Member"/>
 		<typeAlias alias="Study" type="com.oracle.team2.model.Study"/>		
 		<typeAlias alias="StFile" type="com.oracle.team2.model.StFile"/>		
+		<typeAlias alias="Student" type="com.oracle.team2.model.Student"/>		
 	</typeAliases>
 </configuration>

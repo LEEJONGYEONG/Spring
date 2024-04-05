@@ -50,7 +50,6 @@ public class JM_Controller {
         	session.setAttribute("member_tel", member.getMember_tel());
         	session.setAttribute("member_makey", member.getMember_makey());
         	session.setAttribute("member_mikey", member.getMember_mikey());
-        	System.out.println("세션정보 저장되나???"+session.getAttribute("userSession"));
         	 session.setMaxInactiveInterval(60 * 30);
         	 //model.addAttribute("userSession", member); // 세션 정보를 Model에 추가
 

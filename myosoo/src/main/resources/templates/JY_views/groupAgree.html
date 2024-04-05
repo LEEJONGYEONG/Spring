@@ -1,0 +1,96 @@
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-teal-200 p-6">
+        <div class="flex justify-between mb-4">
+            <div class="flex items-center">
+                <div class="mr-2">
+                    <div class="text-sm">학습 그룹</div>
+
+                </div>
+                <select class="border p-1 text-sm">
+                    <option>옵션1</option>
+                </select>
+            </div>
+            <button class="bg-blue-500 text-white px-3 py-1 text-sm">조회 하기</button>
+        </div>
+        <div class="mb-4">
+            
+                <div class="w">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="publisher-name">
+                        게임콘텐츠명
+                    </label>
+                    <input
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="publisher-name" type="text" placeholder="" readonly>
+                </div>
+                <div class="">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="publisher-code">
+                        구독가능 인원
+                    </label>
+                    <input
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="publisher-code" type="text" placeholder="" readonly>
+                </div>
+
+            
+            <div class="w">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="publisher-name">
+                    구독기간
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline "
+                    id="publisher-name" type="text" placeholder="" readonly>
+            </div>
+
+            <div class="bg-white p-4 mt-5">
+                
+                <table class="w-full text-sm text-left text-gray-500 ">
+                    <h2 class="mb-4">신규가입 신청 현황</h2>
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-100 ">
+                        <tr>
+                            <th scope="col" class="py-3 px-6">No</th>
+                            <th scope="col" class="py-3 px-6">학습 이름</th>
+                            <th scope="col" class="py-3 px-6">학생 이름</th>
+                            <th scope="col" class="py-3 px-6">학생 연락처</th>
+                            <th scope="col" class="py-3 px-6">승인요청일자</th>
+                            <th scope="col" class="py-3 px-6">승인 여부</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-white border-b">
+                            <td><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 ml-5" ></td>
+                            <td class="py-4 px-6">숙제명1</td>
+                            <td class="py-4 px-6">숙제내용1</td>
+                            <td class="py-4 px-6">그룹</td>
+                            <td class="py-4 px-6">레벨1</td>
+                            <td class="py-4 px-6"><input type="checkbox" class="ml-5"></td>
+    
+                        </tr>
+                        <!-- Repeat for each row -->
+                        
+                        <!-- Repeat for each row -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-4">
+                <button class="bg-green-300 px-4 py-2 w-full">저장 하기</button>
+            </div>
+        </div>
+</body>
+
+</html>

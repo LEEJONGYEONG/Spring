@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.oracle.team2.dao.DY_Dao.DY_Dao_Interface;
 import com.oracle.team2.dao.JY_Dao.JY_Dao_Interface;
 import com.oracle.team2.model.StFile;
+import com.oracle.team2.model.Student;
 import com.oracle.team2.model.Study;
 
 import lombok.RequiredArgsConstructor;
@@ -18,30 +19,11 @@ public class JY_ServiceImpl implements JY_Service_Interface {
 	private final JY_Dao_Interface jyd;
 
 	@Override
-	public int totalStudy() {
-		System.out.println("JY_ServiceImpl totalStudy Start");
-		int totalStudyCnt = jyd.totalStudy();
-		System.out.println("JY_ServiceImpl totalStudy totalStudyCnt -> " + totalStudyCnt);
-		
-		return totalStudyCnt;
-	}
-
-	@Override
-	public List<Study> studyGroupAppList(Study study) {
-		List<Study> listStudyGroupApp = null;
-		System.out.println("JY_ServiceImpl listStudyGroupApp Start");
-		listStudyGroupApp = jyd.studyGroupAppList(study);
-		System.out.println("JY_ServiceImpl listStudyGroupApp.size() -> " + listStudyGroupApp.size());
-		
-		return listStudyGroupApp;
-	}
-
-	@Override
 	public int condTotalStudy(Study study) {
 		int totalStudyCount = 0;
-		System.out.println("JY_ServiceImpl condTotalEmp Start...");
-		totalStudyCount = jyd.condTotalEmp(study);
-		System.out.println("JY_ServiceImpl condTotalEmp totalStudyCount -> " + totalStudyCount);
+		System.out.println("JY_ServiceImpl condTotalStudy Start...");
+		totalStudyCount = jyd.condTotalStudy(study);
+		System.out.println("JY_ServiceImpl condTotalStudy totalStudyCount -> " + totalStudyCount);
 		
 		return totalStudyCount;
 	}
@@ -57,9 +39,10 @@ public class JY_ServiceImpl implements JY_Service_Interface {
 	}
 
 	@Override
-	public int totalStFile() {
+	public int totalStFile(StFile stFile) {
+		int totalStFileCnt = 0;
 		System.out.println("JY_ServiceImpl totalStFile Start");
-		int totalStFileCnt = jyd.totalStFile();
+		totalStFileCnt = jyd.totalStFile(stFile);
 		System.out.println("JY_ServiceImpl totalStFile totalStFileCnt -> " + totalStFileCnt);
 		
 		return totalStFileCnt;
@@ -73,6 +56,60 @@ public class JY_ServiceImpl implements JY_Service_Interface {
 		System.out.println("JY_ServiceImpl listStFile.size() -> " + listStFile.size());
 		
 		return listStFile;
+	}
+
+	@Override
+	public int stFileInsert(StFile stFile) {
+		System.out.println("JY_ServiceImpl stFileInsert start...");
+		int insertStFile = 0;
+		insertStFile = jyd.stFileInsert(stFile);
+		
+		return insertStFile;
+	}
+
+	@Override
+	public StFile stFileDetail(int stfile_key) {
+		System.out.println("JY_ServiceImpl stFileDetail start...");
+		StFile detailStFile = null;
+		detailStFile = jyd.stFileDetail(stfile_key);
+		
+		return detailStFile;
+	}
+
+	@Override
+	public int stFileDelete(int stfile_key) {
+		System.out.println("JY_ServiceImpl stFileDelete start...");
+		int deleteStFile = 0;
+		deleteStFile = jyd.stFileDelete(stfile_key);
+		
+		return deleteStFile;
+	}
+
+	@Override
+	public int stFileUpdate(StFile stFile) {
+		System.out.println("JY_ServiceImpl stFileUpdate start...");
+		int updateStFile = 0;
+		updateStFile = jyd.stFileUpdate(stFile);
+		
+		return updateStFile;
+	}
+
+	@Override
+	public int stFileApp(Student student) {
+		System.out.println("JY_ServiceImpl stFileApp start...");
+		int appStFile = 0;
+		appStFile = jyd.stFileApp(student);
+		
+		return appStFile;
+	}
+
+	@Override
+	public boolean searchMyApp(Student student) {
+		System.out.println("JY_ServiceImpl searchMyApp start...");
+		boolean myAppSearch = false;
+		myAppSearch = jyd.searchMyApp(student);
+		
+		return myAppSearch;
 	}
 	
 } // class

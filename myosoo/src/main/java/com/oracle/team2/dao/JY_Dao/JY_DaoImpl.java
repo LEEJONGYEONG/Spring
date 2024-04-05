@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.oracle.team2.model.StFile;
+import com.oracle.team2.model.Student;
 import com.oracle.team2.model.Study;
 
 import lombok.RequiredArgsConstructor;
@@ -18,45 +19,15 @@ public class JY_DaoImpl implements JY_Dao_Interface {
 	private final SqlSession session;
 
 	@Override
-	public int totalStudy() {
-		int totalStudyCnt = 0;
-		System.out.println("JY_DaoImpl totalStudy Start");
-		
-		try {
-			totalStudyCnt = session.selectOne("jyTotalStudy");
-			System.out.println("JY_DaoImpl totalStudy totalStudyCnt -> " + totalStudyCnt);
-		} catch (Exception e) {
-			System.out.println("JY_DaoImpl totalStudy Exception -> " + e.getMessage());
-		}
-		
-		return totalStudyCnt;
-	}
-
-	@Override
-	public List<Study> studyGroupAppList(Study study) {
-		List<Study> listStudyGroupApp = null;
-		System.out.println("JY_DaoImpl studyGroupAppList Start");
-		
-		try {
-			listStudyGroupApp = session.selectList("jyStudyGroupAppList", study);
-			System.out.println("JY_DaoImpl listStudyGroupApp.size() -> " + listStudyGroupApp.size());
-		} catch (Exception e) {
-			System.out.println("JY_DaoImpl studyGroupAppList Exception -> " + e.getMessage());
-		}
-		
-		return listStudyGroupApp;
-	}
-
-	@Override
-	public int condTotalEmp(Study study) {
+	public int condTotalStudy(Study study) {
 		int totalStudyCount = 0;
-		System.out.println("JY_DaoImpl condTotalEmp Start...");
-		System.out.println("JY_DaoImpl Start emp -> " + study);
+		System.out.println("JY_DaoImpl condTotalStudy Start...");
+		System.out.println("JY_DaoImpl Start study -> " + study);
 		try {
-			totalStudyCount = session.selectOne("jyCondTotalEmp", study);
-			System.out.println("JY_DaoImpl condTotalEmp totalStudyCount -> " + totalStudyCount);
+			totalStudyCount = session.selectOne("jyCondTotalStudy", study);
+			System.out.println("JY_DaoImpl condTotalStudy totalStudyCount -> " + totalStudyCount);
 		} catch (Exception e) {
-			System.out.println("JY_DaoImpl condTotalEmp Exception -> " + e.getMessage());
+			System.out.println("JY_DaoImpl condTotalStudy Exception -> " + e.getMessage());
 		}
 		
 		return totalStudyCount;
@@ -66,7 +37,7 @@ public class JY_DaoImpl implements JY_Dao_Interface {
 	public List<Study> studyGroupAppSearch(Study study) {
 		List<Study> searchStudyGroupApp = null;
 		System.out.println("JY_DaoImpl studyGroupAppSearch Start...");
-		System.out.println("JY_DaoImpl studyGroupAppSearch emp -> " + study);
+		System.out.println("JY_DaoImpl studyGroupAppSearch study -> " + study);
 		try {
 			searchStudyGroupApp = session.selectList("jyStudyGroupAppSearch", study);
 		} catch (Exception e) {
@@ -77,12 +48,12 @@ public class JY_DaoImpl implements JY_Dao_Interface {
 	}
 
 	@Override
-	public int totalStFile() {
+	public int totalStFile(StFile stFile) {
 		int totalStFileCnt = 0;
 		System.out.println("JY_DaoImpl totalStFile Start");
 		
 		try {
-			totalStFileCnt = session.selectOne("jyTotalStFile");
+			totalStFileCnt = session.selectOne("jyTotalStFile", stFile);
 			System.out.println("JY_DaoImpl totalStFile totalStFileCnt -> " + totalStFileCnt);
 		} catch (Exception e) {
 			System.out.println("JY_DaoImpl totalStFile Exception -> " + e.getMessage());
@@ -95,6 +66,7 @@ public class JY_DaoImpl implements JY_Dao_Interface {
 	public List<StFile> stFileList(StFile stFile) {
 		List<StFile> listStFile = null;
 		System.out.println("JY_DaoImpl stFileList start...");
+		if (stFile.getKeyword() == null) stFile.setKeyword("");
 		
 		try {
 			listStFile = session.selectList("jyStFileList", stFile);
@@ -104,6 +76,93 @@ public class JY_DaoImpl implements JY_Dao_Interface {
 		}
 		
 		return listStFile;
+	}
+
+	@Override
+	public int stFileInsert(StFile stFile) {
+		int insertStFile = 0;
+		System.out.println("JY_DaoImpl stFileInsert start...");
+		try {
+			insertStFile = session.insert("jyStFileInsert", stFile);
+		} catch (Exception e) {
+			System.out.println("JY_DaoImpl stFileInsert Exception ->" + e.getMessage());
+		}
+		
+		return insertStFile;
+	}
+
+	@Override
+	public StFile stFileDetail(int stfile_key) {
+		System.out.println("JY_DaoImpl stFileDetail start...");
+		StFile detailStFile = new StFile();
+		
+		try {
+			detailStFile = session.selectOne("jyStFileDetail", stfile_key);
+		} catch (Exception e) {
+			System.out.println("JY_DaoImpl stFileDetail Exception -> " + e.getMessage());
+		}
+		
+		return detailStFile;
+	}
+
+	@Override
+	public int stFileDelete(int stfile_key) {
+		System.out.println("JY_DaoImpl stFileDelete start...");
+		int deleteStFile = 0;
+		
+		try {
+			deleteStFile = session.delete("jyStFileDelete", stfile_key);
+		} catch (Exception e) {
+			System.out.println("JY_DaoImpl stFileDelete Exception -> " + e.getMessage());
+		}
+		
+		return deleteStFile;
+	}
+
+	@Override
+	public int stFileUpdate(StFile stFile) {
+		System.out.println("JY_DaoImpl stFileUpdate start...");
+		int updateStFile = 0;
+		
+		try {
+			updateStFile = session.update("jyStFileUpdate", stFile);
+		} catch (Exception e) {
+			System.out.println("JY_DaoImpl stFileUpdate Exception -> " + e.getMessage());
+		}
+		
+		return updateStFile;
+	}
+
+	@Override
+	public int stFileApp(Student student) {
+		System.out.println("JY_DaoImpl stFileApp start...");
+		int appStFile = 0;
+		
+		try {
+			appStFile = session.insert("jyStFileApp", student);
+		
+		} catch (Exception e) {
+			System.out.println("JY_DaoImpl stFileApp Exception -> " + e.getMessage());
+		}
+		
+		return appStFile;
+	}
+
+	@Override
+	public boolean searchMyApp(Student student) {
+		System.out.println("JY_DaoImpl searchMyApp start...");
+		boolean myAppSearch = false;
+		
+		try {
+			Student myAppList = session.selectOne("jySearchMyApp", student);
+			if (myAppList != null) {
+	            myAppSearch = true;
+	        }
+		} catch (Exception e) {
+			System.out.println("JY_DaoImpl searchMyApp Exception -> " + e.getMessage());
+		}
+		
+		return myAppSearch;
 	}
 
 }// class

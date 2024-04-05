@@ -1,79 +1,174 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oracle.team2.jyMapper">
-
-	<select id="jyTotalStudy" resultType="int">
-		SELECT Count(*) FROM study
-	</select>
 	
-	<select id="jyStudyGroupAppList" parameterType="Study" resultType="Study">
-		SELECT a.*, m.member_name
-		FROM
-		(
-		    SELECT rownum rn, s.*
-		    FROM
-		    (
-		        SELECT * FROM study ORDER BY study_key
-		    ) s
-		) a
-		JOIN member m ON a.member_key = m.member_key
-		WHERE a.rn BETWEEN #{start} AND #{end}
-	</select>
-	
-	<select id="jyCondTotalEmp" parameterType="Study" resultType="int">
-   		SELECT Count (*) FROM study
+	<select id="jyCondTotalStudy" parameterType="Study" resultType="int">
+   		SELECT Count (*)
    		<choose>
-   			<when test="search == 's_groupName'">
-                AND study_name  like '%' || #{keyword} || '%'    
+   			<when test="condition == 0">
+                FROM  STUDY 
   			</when>
-  			<when test="search == 's_mentoName'">
-  				JOIN member ON study.member_key = member.member_key
-            	AND member_name like '%' || #{keyword} || '%'    
+  			<when test="condition == 1">
+                FROM    STUDY 
+                WHERE  study_name  like '%' || #{keyword1} || '%'    
+  			</when>
+  			<when test="condition == 2">
+                FROM    STUDY 
+                JOIN     member ON study.member_key = member.member_key
+                WHERE  member_name like '%' || #{keyword2} || '%'  
   			</when>
             <otherwise>
-                AND study_name  like '%'   
+                FROM     STUDY 
+                JOIN      member ON study.member_key = member.member_key
+                WHERE   study_name  like '%' || #{keyword1} || '%'    
+                AND       member_name like '%' || #{keyword2} || '%'  
             </otherwise>
         </choose>
    </select>
    
    <select id="jyStudyGroupAppSearch" parameterType="Study" resultType="Study">
-   		SELECT a.*, m.member_name
+   		SELECT a.*
 		FROM
-		(
+		 (
 		    SELECT rownum rn, s.*
 		    FROM
 		    (
-		        SELECT * FROM study ORDER BY study_key
-		    ) s
-		) a
-		JOIN member m ON a.member_key = m.member_key
-		WHERE a.rn BETWEEN #{start} AND #{end}
-   		<choose>
-   			<when test="search == 's_groupName">
-                AND study_name  like '%' || #{keyword} || '%'    
-  			</when>
-  			<when test="search == 's_mentoName'">
-            	AND member_name like '%' || #{keyword} || '%'    
-  			</when>
-            <otherwise>
-                AND study_name  like '%'   
-            </otherwise>
-        </choose>   
+		        SELECT * 
+                FROM study s
+                JOIN member m ON s.member_key = m.member_key
+	           	<choose>
+					<when test="condition == 0">
+		   			</when>
+		   			<when test="condition == 1">
+		                     WHERE  s.study_name  like '%' || #{keyword1} || '%'    
+		            </when>
+		 		    <when test="condition == 2">
+		                      WHERE  m.member_name like '%' || #{keyword2} || '%'  
+		  		    </when>
+	                <otherwise>
+	                          WHERE  s.study_name  like '%' || #{keyword1} || '%'    
+	                          AND      m.member_name like '%' || #{keyword2} || '%'  
+	                 </otherwise>
+	             </choose>
+	             ORDER BY s.study_key
+	         ) s
+         ) a
+         WHERE a.rn BETWEEN #{start} AND #{end}
    </select>
    
-   <select id="jyTotalStFile" resultType="int">
-		SELECT Count(*) FROM stfile
+   <select id="jyTotalStFile" parameterType="StFile" resultType="int">
+		SELECT Count(*)
+		FROM stfile
+		<where>
+			<choose>
+	   			<when test="search1 == 'st_tuto'">
+	                AND  stfile_mikey = 10
+	  			</when>
+	  			<when test="search1 == 'st_eduMedia'">
+	            	AND stfile_mikey = 20
+	  			</when>
+	        </choose>
+	         <choose>
+	  			<when test="search2 == 'st_media'">
+	            	AND stfile_method = 0
+	  			</when>
+	  			<when test="search2 == 'st_book'">
+	            	AND stfile_method = 1
+	  			</when>
+	  			<when test="search2 == 'st_site'">
+	            	AND stfile_method = 2
+	  			</when>
+	        </choose>
+	         <choose>
+	  			<when test="search3 == 'st_full'">
+	            	AND stfilesv_mikey = 10
+	  			</when>
+	  			<when test="search3 == 'st_short'">
+	            	AND stfilesv_mikey = 20
+	  			</when>
+	        </choose>
+        </where>
 	</select>
 	
 	<select id="jyStFileList" parameterType="StFile" resultType="StFile">
-		SELECT *
+		SELECT a.*
    		FROM
    		(
-   			SELECT rownum rn , a.*
+   			SELECT rownum rn , s.*
    			FROM 
-   				(SELECT * FROM stfile ORDER BY stfile_key) a
-   		)
+   				(
+   					SELECT * 
+   					FROM    stfile
+   					WHERE  stfile_name LIKE '%' || #{keyword} || '%'  
+   					<choose>
+			   			<when test="search1 == 'st_tuto'">
+			                AND  stfile_mikey = 10 
+			  			</when>
+			  			<when test="search1 == 'st_eduMedia'">
+			            	AND stfile_mikey = 20
+			  			</when>
+			        </choose>
+			         <choose>
+			  			<when test="search2 == 'st_media'">
+			            	AND stfile_method = 0
+			  			</when>
+			  			<when test="search2 == 'st_book'">
+			            	AND stfile_method = 1
+			  			</when>
+			  			<when test="search2 == 'st_site'">
+			            	AND stfile_method = 2
+			  			</when>
+			        </choose>
+			         <choose>
+			  			<when test="search3 == 'st_full'">
+			            	AND stfilesv_mikey = 10
+			  			</when>
+			  			<when test="search3 == 'st_short'">
+			            	AND stfilesv_mikey = 20
+			  			</when>
+			        </choose>		        
+   					ORDER BY stfile_key
+   				) s
+   		) a
    		WHERE rn BETWEEN #{start} and #{end}
+	</select>
+	
+	<insert id="jyStFileInsert" parameterType="StFile">
+		INSERT INTO stfile VALUES ((SELECT coalesce(max(a.stfile_key), 0)+1 FROM stfile a), #{member_key}, 200, 
+			#{stfile_mikey}, #{stfile_method}, #{stfile_file}, #{stfile_fileaddr}, 300, #{stfilesv_mikey}, #{stfile_content},
+			#{stfile_img}, sysdate, #{stfile_name})
+	</insert>
+	
+	<select id="jyStFileDetail" parameterType="int" resultType="StFile">
+		SELECT * FROM stfile WHERE stfile_key = #{stfile_key} 
+	</select>
+	
+	<delete id="jyStFileDelete" parameterType="StFile">
+		DELETE FROM stfile WHERE stfile_key = #{stfile_key}
+	</delete>
+	
+	<update id="jyStFileUpdate" parameterType="StFile">
+		UPDATE stfile 
+		SET 
+		    stfile_mikey=#{stfile_mikey}, 
+		    stfile_method=#{stfile_method}, 
+		    stfile_file=#{stfile_file}, 
+		    stfile_fileaddr=#{stfile_fileaddr},
+		    stfilesv_mikey=#{stfilesv_mikey}, 
+		    stfile_content=#{stfile_content},
+		    stfile_img=#{stfile_img}, 
+		    stfile_regdate=sysdate, 
+		    stfile_name=#{stfile_name}
+		WHERE 
+		    stfile_key=#{stfile_key}
+	</update>
+	
+	<insert id="jyStFileApp" parameterType="Student">
+		INSERT INTO student VALUES (#{study_key}, #{member_key}, 0, null, sysdate, 0, null)
+	</insert>
+	
+	<select id="jySearchMyApp" parameterType="int" resultType="Student">
+	    SELECT * FROM student WHERE study_key = #{study_key} AND member_key = #{member_key}
 	</select>
 
 </mapper>

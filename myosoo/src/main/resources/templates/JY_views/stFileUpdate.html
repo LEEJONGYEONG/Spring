@@ -22,7 +22,7 @@
 	        reader.readAsDataURL(input.files[0]);
 	    }
     
-	 	// 모든 입력 필드가 채워졌는지 확인하는 함수
+	 // 모든 입력 필드가 채워졌는지 확인하는 함수
 	    function checkInputs() {
 	        var inputs = document.querySelectorAll('input[type="text"], input[type="file"], select');
 	        var isFilled = true;
@@ -39,7 +39,7 @@
 	 	// 입력값 확인 및 저장 함수
 	    function save() {
 	        if (checkInputs()) {
-	            alert("저장이 완료되었습니다.");
+	            alert("수정이 완료되었습니다.");
 	            // 여기에 저장 로직을 추가할 수 있습니다.
 	        } else {
 	            alert("모든 입력을 완료해주세요.");
@@ -53,12 +53,13 @@
    	<div class="header"><th:block th:replace="~{fragments/header::headerFragment}"></th:block></div>
     <div class="bg-blue-100 p-6 max-w-2xl mx-auto rounded-lg">
         <div class="flex justify-between items-center mb-4">
-            <div class="text-lg font-semibold">학습등록</div>
+            <div class="text-lg font-semibold">학습자료 수정</div>
         </div>
-        <form action="stFileInsert" method="post" name="frm" enctype="multipart/form-data">
+        <form th:action="stFileUpdate" method="post" enctype="multipart/form-data">
 	        <div>
+	        	<input type="hidden" name="stfile_key" th:value="${updateFormStFile.stfile_key}">
 	            <label class="block text-sm font-medium mb-1" for="stfile_name">학습자료명</label>
-	            <input type="text" id="stfile_name"  name="stfile_name" th:value="${stfile_name}"
+	            <input type="text" id="stfile_name"  name="stfile_name" th:value="${updateFormStFile.stfile_name}"
 	            	class="w-full border-2 p-2 rounded" placeholder="학습자료명을 입력하세요" required="required">
 	        </div>
 	        <div>
@@ -78,12 +79,12 @@
 	        </div>
 	        <div>
 	            <label class="block text-sm font-medium mb-1" for="stfile_file">첨부파일명 </label>
-	            <input type="text" id="stfile_file" name="stfile_file" th:value="${stfile_file}"
+	            <input type="text" id="stfile_file" name="stfile_file" th:value="${updateFormStFile.stfile_file}"
 	            	class="w-full border-2 p-2 rounded" placeholder="첨부파일명을 입력하세요 " required="required">
 	        </div>
 	        <div>
 	            <label class="block text-sm font-medium mb-1" for="stfile_fileaddr">첨부파일 주소 </label>
-	            <input type="text" id="stfile_fileaddr" name="stfile_fileaddr" th:value="${stfile_fileaddr}" 
+	            <input type="text" id="stfile_fileaddr" name="stfile_fileaddr" th:value="${updateFormStFile.stfile_fileaddr}" 
 	            	class="w-full border-2 p-2 rounded" placeholder="첨부파일 주소를 입력하세요" required="required">
 	        </div>
 	        <div>
@@ -95,8 +96,10 @@
 	        </div>
 	        <div>
 			    <label class="block text-sm font-medium mb-1" for="stfile_content">자료내용</label>
-			    <textarea id="stfile_content" name="stfile_content" th:value="${stfile_content}"
-			    	class="w-full h-96 border-2 p-2 rounded" placeholder="자료내용을 입력하세요" required="required"></textarea>
+			    <textarea id="stfile_content" name="stfile_content"
+			    	class="w-full h-96 border-2 p-2 rounded" placeholder="자료내용을 입력하세요" required="required">
+			    	[[${updateFormStFile.stfile_content}]]
+			    </textarea>
 			</div>
 	         <div>
 	             <label class="block text-sm font-medium mb-1" for="stfile_img">이미지 업로드</label>
@@ -105,8 +108,7 @@
 	         <!-- 이미지 미리보기 -->
 	         <div id="imagePreview"></div>
 	         <div class="bg-blue-100 p-6 max-w-2xl mx-auto rounded-lg text-center">
-	         	<th:block><th:if test="${msg!=null}" th:text="${msg}"></th:if></th:block>
-	    		<button type="submit" class="bg-blue-500 text-white px-4 py-1 rounded" onclick="save()">숙제 저장</button>
+	    		<button type="submit" class="bg-blue-500 text-white px-4 py-1 rounded" onclick="save()">수정 완료</button>
 			</div>
 		</form>
     </div>

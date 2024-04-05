@@ -1,6 +1,5 @@
 package com.oracle.team2.model;
 
-import java.sql.Blob;
 import java.util.Date;
 
 import lombok.Data;
@@ -17,12 +16,15 @@ public class StFile {
 	private int stfilesv_makey; // 서비스구분 대분류
 	private int stfilesv_mikey; // 서비스구분 소분류
 	private String stfile_content; // 자료내용
-	private Blob stfile_img; // 썸네일
+	private byte[] stfile_img; // 썸네일(decode)
+	private String stfile_imgEncod; // 썸네일(encode)
 	private Date stfile_regdate; // 등록일자
-	private String stFile_name; // 학습교재명
+	private String stfile_name; // 학습자료명
 
 	// 조회용
-		private String search;
+		private String search1;
+		private String search2;
+		private String search3;
 		private String keyword;
 		private String pageNum;
 		private int start;

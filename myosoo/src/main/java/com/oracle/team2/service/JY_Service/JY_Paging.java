@@ -10,8 +10,8 @@ import lombok.ToString;
 public class JY_Paging {
 	
 	private int currentPage = 1;
-	private int rowPage = 3;
-	private int pageBlock = 3;
+	private int rowPage = 5;
+	private int pageBlock = 10;
 	private int start;
 	private int end;
 	private int startPage;
