@@ -19,10 +19,8 @@
 	        }
 	
 	        // 선택된 항목의 study 키를 URL에 전달하여 페이지 이동
-	        var url = 'stFileApp?study_key=' + selectedStudy.value;
+	        var url = 'studyGroupApp?study_key=' + selectedStudy.value;
 	        window.location.href = url;
-	
-	        alert('신청이 완료되었습니다.');
 	    }
 	</script>
     <style>
@@ -69,6 +67,7 @@
 			           </button>
 		           </div>
 		    </div>
+		    <div th:if="${resultMsg != null}" th:text="${resultMsg}"></div>
             <table class="w-full text-sm text-center text-gray-500 mb-4">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
                     <tr>

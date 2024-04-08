@@ -16,7 +16,11 @@ public class Study {
 	private int study_maxperson; // T/O(정원 수)
 	private int study_maxlevel; // 최대레벨
 	private String study_bigo; // 비고
-	private String member_name; // member테이블의 회원이름
+	private String member_name; // member table : 학생이름
+	private String member_tel; // member table : 휴대폰번호
+	private String game_name; // game table : 게임콘텐츠명
+	private Date student_date; // student table : 신청일자
+	private int student_confirm; // student table : 승인여부 (미승인 0 / 승인 1)
 	
 	// 조회용
 	private String search;

@@ -134,18 +134,18 @@ public class JY_DaoImpl implements JY_Dao_Interface {
 	}
 
 	@Override
-	public int stFileApp(Student student) {
-		System.out.println("JY_DaoImpl stFileApp start...");
-		int appStFile = 0;
+	public int studyGroupApp(Student student) {
+		System.out.println("JY_DaoImpl studyGroupApp start...");
+		int appStudyGroup = 0;
 		
 		try {
-			appStFile = session.insert("jyStFileApp", student);
+			appStudyGroup = session.insert("jyStudyGroupApp", student);
 		
 		} catch (Exception e) {
-			System.out.println("JY_DaoImpl stFileApp Exception -> " + e.getMessage());
+			System.out.println("JY_DaoImpl studyGroupApp Exception -> " + e.getMessage());
 		}
 		
-		return appStFile;
+		return appStudyGroup;
 	}
 
 	@Override
@@ -163,6 +163,33 @@ public class JY_DaoImpl implements JY_Dao_Interface {
 		}
 		
 		return myAppSearch;
+	}
+
+	@Override
+	public int condTotalStudent(Study study) {
+		System.out.println("JY_DaoImpl condTotalStudent start...");
+		int studentCondTotal = 0;
+		try {
+			studentCondTotal = session.selectOne("jyCondTotalStudent", study);
+		} catch (Exception e) {
+			System.out.println("JY_DaoImpl condTotalStudent Exception -> " + e.getMessage());
+		}
+		
+		return studentCondTotal;
+	}
+
+	@Override
+	public List<Study> studyJoinApproval(Study study) {
+		System.out.println("JY_DaoImpl studyJoinApproval start...");
+		List<Study> joinApprovalStudy = null;
+		
+		try {
+			joinApprovalStudy = session.selectList("jyStudyJoinApproval", study);
+		} catch (Exception e) {
+			System.out.println("JY_DaoImpl studyJoinApproval Exception -> " + e.getMessage());
+		}
+		
+		return joinApprovalStudy;
 	}
 
 }// class

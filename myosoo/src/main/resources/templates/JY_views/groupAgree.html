@@ -1,96 +1,105 @@
-<html lang="ko">
-
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>학습자료 등록</title>
+    <th:block th:replace="~{fragments/configure::configure}"></th:block>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+        table {
+            border-collapse: separate;
+            border-spacing: 0 8px; /* 각 셀 사이의 수직 간격 설정, 필요에 따라 조절하세요 */
+        }
 
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
+        th, td {
+            border-bottom: 1px solid #e5e7eb; /* 각 셀의 하단에 구분선을 추가합니다 */
+        }
+
+        th, td {
+            border-right: 1px solid #e5e7eb; /* 각 th 요소의 오른쪽 테두리를 추가하여 구분선을 만듭니다 */
+        }
+
+        th, td:last-child {
+            border-right: none; /* 마지막 th 요소에는 오른쪽 테두리를 추가하지 않습니다 */
         }
     </style>
 </head>
-
 <body>
-    <div class="bg-teal-200 p-6">
-        <div class="flex justify-between mb-4">
-            <div class="flex items-center">
-                <div class="mr-2">
-                    <div class="text-sm">학습 그룹</div>
-
-                </div>
-                <select class="border p-1 text-sm">
-                    <option>옵션1</option>
-                </select>
-            </div>
-            <button class="bg-blue-500 text-white px-3 py-1 text-sm">조회 하기</button>
+	<!-- header -->
+   	<div class="header"><th:block th:replace="~{fragments/header::headerFragment}"></th:block></div>
+    <div class="bg-blue-100 p-6 max-w-7xl mx-auto rounded-lg">      
+        <div class="pt-4">
+            <form action="studyJoinApproval">
+            	<div class="flex items-center justify-between my-4">
+	                <div class="flex items-center">
+	                    <select name="search1" id="search1" class="ml-2" th:value="${study.search}">
+	                    	<option disabled>학습그룹 선택하기</option>
+	                        <option th:each="study : ${study}" th:value="select" 
+	                        	th:selected="${study.search} == 'select'" th:text="${study.study_name}"></option>
+	                    </select>
+	                </div>
+	                <div>
+	                    <button type="submit" class="bg-blue-500 text-white px-4 py-1 rounded">조회하기</button>
+	                </div>
+	            </div>
+	            <div class="flex items-center justify-between my-4">
+	            	<p th:text="'*게임콘텐츠명 : ' + ${study.game_name}"></p>
+	            	<p th:text="'*구독가능인원 : ' + ${study.study_maxperson} + '명'"></p>
+	            </div>
+	            <div>
+	            	<p>신규가입 신청 현황</p>
+	            </div>
+            </form>
+            <table class="w-full text-sm text-center text-gray-500 mb-4">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                    <tr>
+                        <th scope="col" class="py-2 px-0 w-24 h-12">No</th>
+                        <th scope="col" class="py-3 px-0 w-28 h-12">학생이름</th>
+                        <th scope="col" class="py-3 px-0 w-28 h-12">학생연락처</th>
+                        <th scope="col" class="py-3 px-0 w-28 h-12">승인요청일자</th>
+                        <th scope="col" class="py-3 px-0 w-28 h-12">승인여부</th>
+                    </tr>
+                </thead>
+                <tbody>
+                	<th:block th:each="study : ${joinApprovalStudy}">
+                		<th:block th:if="${study.student_confirm == 0}">
+		                    <tr class="bg-white border-b ">
+		                        <td class="py-4 px-0 w-64 h-28"><p class="w-100% break-all"></p></td>
+		                        <td class="py-4 px-0 w-24 h-28"><p class="w-100% break-all" th:text="${study.member_name}"></p></td>
+		                        <td class="py-4 px-0 w-24 h-28"><p class="w-100% break-all" th:text="${study.member_tel}"></p></td>
+		                        <td class="py-4 px-0 w-24 h-28"><p th:text="${#dates.format(study.student_date, 'yyyy.MM.dd')}"></p></td>
+		                        <td ><input class="ml-6" type="checkbox" id="checkbox1" name="checkbox1" th:value="${study.student_confirm}"></td>
+		                    </tr>
+	                    </th:block>
+	             	</th:block>
+                </tbody>
+            </table>
+            <button type="button" class="bg-blue-500 text-white px-4 py-1 rounded">저장하기</button>
+            <nav aria-label="Page navigation example" class="text-center">
+			    <ul class="inline-flex -space-x-px text-sm">
+			        <li th:if="${page.startPage > page.pageBlock}">
+			            <a th:href="@{studyJoinApproval(currentPage=${page.startPage - page.pageBlock}, search=${study.search})}"
+			               class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+			                이전
+			            </a>
+			        </li>
+			        <li th:each="i : ${#numbers.sequence(page.startPage, page.endPage)}">
+			            <a th:href="@{studyJoinApproval(currentPage=${i}, search=${study.search})}"
+			               class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+			                [[${i}]]
+			            </a>
+			        </li>
+			        <li th:if="${page.endPage < page.totalPage}">
+			            <a th:href="@{studyJoinApproval(currentPage=${page.startPage + page.pageBlock}, search=${study.search})}"
+			               class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+			                다음
+			            </a>
+			        </li>
+			    </ul>
+			</nav>
         </div>
-        <div class="mb-4">
-            
-                <div class="w">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="publisher-name">
-                        게임콘텐츠명
-                    </label>
-                    <input
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="publisher-name" type="text" placeholder="" readonly>
-                </div>
-                <div class="">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="publisher-code">
-                        구독가능 인원
-                    </label>
-                    <input
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="publisher-code" type="text" placeholder="" readonly>
-                </div>
-
-            
-            <div class="w">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="publisher-name">
-                    구독기간
-                </label>
-                <input
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline "
-                    id="publisher-name" type="text" placeholder="" readonly>
-            </div>
-
-            <div class="bg-white p-4 mt-5">
-                
-                <table class="w-full text-sm text-left text-gray-500 ">
-                    <h2 class="mb-4">신규가입 신청 현황</h2>
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-100 ">
-                        <tr>
-                            <th scope="col" class="py-3 px-6">No</th>
-                            <th scope="col" class="py-3 px-6">학습 이름</th>
-                            <th scope="col" class="py-3 px-6">학생 이름</th>
-                            <th scope="col" class="py-3 px-6">학생 연락처</th>
-                            <th scope="col" class="py-3 px-6">승인요청일자</th>
-                            <th scope="col" class="py-3 px-6">승인 여부</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="bg-white border-b">
-                            <td><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 ml-5" ></td>
-                            <td class="py-4 px-6">숙제명1</td>
-                            <td class="py-4 px-6">숙제내용1</td>
-                            <td class="py-4 px-6">그룹</td>
-                            <td class="py-4 px-6">레벨1</td>
-                            <td class="py-4 px-6"><input type="checkbox" class="ml-5"></td>
-    
-                        </tr>
-                        <!-- Repeat for each row -->
-                        
-                        <!-- Repeat for each row -->
-                    </tbody>
-                </table>
-            </div>
-            <div class="mt-4">
-                <button class="bg-green-300 px-4 py-2 w-full">저장 하기</button>
-            </div>
-        </div>
+    </div>
+    <div class="footer"><th:block th:replace="~{fragments/footer::footerFragment}"></th:block></div>
 </body>
-
 </html>

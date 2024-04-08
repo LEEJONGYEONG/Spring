@@ -184,8 +184,8 @@ public class JY_Controller {
 		return "JY_views/studyGroupApplication";
 	}
 	
-	@RequestMapping(value = "stFileApp")
-	public String stFileApp(Student student, HttpSession session , Model model) {
+	@RequestMapping(value = "studyGroupApp")
+	public String studyGroupApp(Student student, HttpSession session , Model model) {
 		System.out.println("JY_Controller stFileApp start...");
 
 		int member_key = (int) session.getAttribute("member_key");
@@ -193,15 +193,42 @@ public class JY_Controller {
         System.out.println("JY_Controller stFileApp stFile -> " + student);
         
         boolean myAppSearch = jys.searchMyApp(student);
+        String resultMsg = null;
         System.out.println("JY_Controller stFileApp myAppSearch -> " + myAppSearch);
         if (myAppSearch) {
-        	String resultMsg = null;
-        	model.addAttribute("resultMsg" , resultMsg);
+        	model.addAttribute("resultMsg" , "이미 가입신청한 학습그룹입니다.");
         } else {
-        	int appStFile = jys.stFileApp(student);
-    		System.out.println("JY_Controller stFileApp appStFile -> " + appStFile);
+        	int appStudyGroup = jys.studyGroupApp(student);
+    		System.out.println("JY_Controller stFileApp appStudyGroup -> " + appStudyGroup);
+    		model.addAttribute("resultMsg" , "학습그룹 가입신청이 완료되었습니다.");
         }
 
 		return "forward:studyGroupAppSearch";
+	}
+	
+	@RequestMapping(value = "studyJoinApproval")
+	public String studyJoinApproval(Study study, Model model, HttpSession session) {
+		System.out.println("JY_Controller studyJoinApproval start...");
+		
+		int member_key = (int) session.getAttribute("member_key");
+		study.setMember_key(member_key);
+        System.out.println("JY_Controller stFileApp stFile -> " + study);
+        
+        int totalStudent = jys.condTotalStudent(study);
+		System.out.println("JY_Controller Start totalStudent -> " + totalStudent);
+        JY_Paging page = new JY_Paging(totalStudent, study.getCurrentPage());
+        study.setStart(page.getStart());
+        study.setEnd(page.getEnd());
+        
+        
+        List<Study> joinApprovalStudy = jys.studyJoinApproval(study);
+		System.out.println("JY_Controller joinApprovalStudy.size() -> " + joinApprovalStudy.size());
+		
+		model.addAttribute("totalStudent", totalStudent);
+		model.addAttribute("joinApprovalStudy", joinApprovalStudy);
+		model.addAttribute("study", study);
+		model.addAttribute("page", page);
+		
+		return "JY_views/groupAgree";
 	}
 } // class

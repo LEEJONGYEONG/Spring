@@ -24,8 +24,12 @@ public interface JY_Service_Interface {
 
 	int stFileUpdate(StFile stFile);
 
-	int stFileApp(Student student);
+	int studyGroupApp(Student student);
 
 	boolean searchMyApp(Student student);
+
+	int condTotalStudent(Study study);
+
+	List<Study> studyJoinApproval(Study study);
 
 }

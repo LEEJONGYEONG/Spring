@@ -95,12 +95,12 @@ public class JY_ServiceImpl implements JY_Service_Interface {
 	}
 
 	@Override
-	public int stFileApp(Student student) {
-		System.out.println("JY_ServiceImpl stFileApp start...");
-		int appStFile = 0;
-		appStFile = jyd.stFileApp(student);
+	public int studyGroupApp(Student student) {
+		System.out.println("JY_ServiceImpl studyGroupApp start...");
+		int appStudyGroup = 0;
+		appStudyGroup = jyd.studyGroupApp(student);
 		
-		return appStFile;
+		return appStudyGroup;
 	}
 
 	@Override
@@ -110,6 +110,25 @@ public class JY_ServiceImpl implements JY_Service_Interface {
 		myAppSearch = jyd.searchMyApp(student);
 		
 		return myAppSearch;
+	}
+
+	@Override
+	public int condTotalStudent(Study study) {
+		int studentCondTotal = 0;
+		System.out.println("JY_ServiceImpl condTotalStudent start...");
+		studentCondTotal = jyd.condTotalStudent(study);
+		System.out.println("JY_ServiceImpl condTotalStudent studentCondTotal -> " + studentCondTotal);
+		
+		return studentCondTotal;
+	}
+
+	@Override
+	public List<Study> studyJoinApproval(Study study) {
+		List<Study> joinApprovalStudy = null;
+		System.out.println("JY_ServiceImpl studyJoinApproval start...");
+		joinApprovalStudy = jyd.studyJoinApproval(study);
+		
+		return joinApprovalStudy;
 	}
 	
 } // class
