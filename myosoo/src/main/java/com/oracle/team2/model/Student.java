@@ -13,5 +13,9 @@ public class Student {
 	private Date student_date; // 신청일자
 	private int student_confirm; // 승인여부 (미승인 0 / 승인 1)
 	private Date student_confirmdate; // 승인일자
+	private int study_maxperson; // study table : T/O(정원 수)
+	private int study_appperson; // study table : 승인된 인원수
 	
+	private int[] checkboxes;
+	private int appPerson;
 }

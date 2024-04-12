@@ -166,30 +166,69 @@ public class JY_DaoImpl implements JY_Dao_Interface {
 	}
 
 	@Override
-	public int condTotalStudent(Study study) {
-		System.out.println("JY_DaoImpl condTotalStudent start...");
-		int studentCondTotal = 0;
-		try {
-			studentCondTotal = session.selectOne("jyCondTotalStudent", study);
-		} catch (Exception e) {
-			System.out.println("JY_DaoImpl condTotalStudent Exception -> " + e.getMessage());
-		}
-		
-		return studentCondTotal;
-	}
-
-	@Override
 	public List<Study> studyJoinApproval(Study study) {
 		System.out.println("JY_DaoImpl studyJoinApproval start...");
 		List<Study> joinApprovalStudy = null;
 		
 		try {
+			System.out.println("JY_DaoImpl studyJoinApproval study->"+study);
 			joinApprovalStudy = session.selectList("jyStudyJoinApproval", study);
+			
+			for(Study study2 : joinApprovalStudy) {
+				System.out.println("JY_DaoImpl studyJoinApproval study2->"+study2);
+			}
+			
+			
 		} catch (Exception e) {
 			System.out.println("JY_DaoImpl studyJoinApproval Exception -> " + e.getMessage());
 		}
 		
 		return joinApprovalStudy;
+	}
+
+	@Override
+	public List<Study> studyJoinAppForm(Study study) {
+		System.out.println("JY_DaoImpl studyJoinAppForm start...");
+		List<Study> sjaForm = null;
+		
+		try {
+			sjaForm = session.selectList("jyStudyJoinAppForm", study);
+		} catch (Exception e) {
+			System.out.println("JY_DaoImpl studyJoinAppForm Exception -> " + e.getMessage());
+		}
+		
+		return sjaForm;
+	}
+
+	@Override
+	public int approveJoin(Student student) {
+	    System.out.println("JY_DaoImpl approveJoin start...");
+	    int joinApprove = 0;
+	    
+	    try {
+	        // 첫 번째 쿼리 실행
+	        joinApprove += session.update("updateJoinStudent", student);
+	        // 두 번째 쿼리 실행
+	        joinApprove += session.update("updateJoinStudy", student);
+	    } catch (Exception e) {
+	        System.out.println("JY_DaoImpl approveJoin Exception -> " + e.getMessage());
+	    }
+	    
+	    return joinApprove;
+	}
+
+	@Override
+	public Student searchMxPerson(Student student) {
+		System.out.println("JY_DaoImpl searchMxPerson start...");
+		Student mxPersonSearch = null;
+		
+		try {
+			mxPersonSearch = session.selectOne("jySearchMxPerson", student);
+		} catch (Exception e) {
+			System.out.println("JY_DaoImpl searchMxPerson Exception -> " + e.getMessage());
+		}
+		
+		return mxPersonSearch;
 	}
 
 }// class

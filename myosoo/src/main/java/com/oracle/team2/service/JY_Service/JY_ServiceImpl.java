@@ -113,22 +113,39 @@ public class JY_ServiceImpl implements JY_Service_Interface {
 	}
 
 	@Override
-	public int condTotalStudent(Study study) {
-		int studentCondTotal = 0;
-		System.out.println("JY_ServiceImpl condTotalStudent start...");
-		studentCondTotal = jyd.condTotalStudent(study);
-		System.out.println("JY_ServiceImpl condTotalStudent studentCondTotal -> " + studentCondTotal);
-		
-		return studentCondTotal;
-	}
-
-	@Override
 	public List<Study> studyJoinApproval(Study study) {
 		List<Study> joinApprovalStudy = null;
 		System.out.println("JY_ServiceImpl studyJoinApproval start...");
 		joinApprovalStudy = jyd.studyJoinApproval(study);
 		
 		return joinApprovalStudy;
+	}
+
+	@Override
+	public List<Study> studyJoinAppForm(Study study) {
+		List<Study> sjaForm = null;
+		System.out.println("JY_ServiceImpl studyJoinAppForm start...");
+		sjaForm = jyd.studyJoinAppForm(study);
+		
+		return sjaForm;
+	}
+
+	@Override
+	public int approveJoin(Student student) {
+		int joinApprove = 0;
+		System.out.println("JY_ServiceImpl approveJoin start...");
+		joinApprove = jyd.approveJoin(student);
+		
+		return joinApprove;
+	}
+
+	@Override
+	public Student searchMxPerson(Student student) {
+		Student mxPersonSearch = null;
+		System.out.println("JY_ServiceImpl searchMxPerson start...");
+		mxPersonSearch = jyd.searchMxPerson(student);
+		
+		return mxPersonSearch;
 	}
 	
 } // class

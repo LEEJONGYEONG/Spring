@@ -1,6 +1,7 @@
 package com.oracle.team2.controller;
 
 
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
@@ -206,6 +207,24 @@ public class JY_Controller {
 		return "forward:studyGroupAppSearch";
 	}
 	
+	@RequestMapping(value = "studyJoinAppForm")
+	public String studyJoinAppForm(Study study, Model model, HttpSession session) {
+		System.out.println("JY_Controller studyJoinAppForm start...");
+		
+		int member_key = (int) session.getAttribute("member_key");
+		study.setMember_key(member_key);
+        System.out.println("JY_Controller stFileApp stFile -> " + study);
+		
+		List<Study> sjaForm = jys.studyJoinAppForm(study);
+		System.out.println("JY_Controller sjaForm.size() -> " + sjaForm.size());
+		
+		model.addAttribute("sjaForm", sjaForm);
+		model.addAttribute("study", study);
+		model.addAttribute("page");
+		
+		return "JY_views/groupAgree";
+	}
+	
 	@RequestMapping(value = "studyJoinApproval")
 	public String studyJoinApproval(Study study, Model model, HttpSession session) {
 		System.out.println("JY_Controller studyJoinApproval start...");
@@ -214,21 +233,50 @@ public class JY_Controller {
 		study.setMember_key(member_key);
         System.out.println("JY_Controller stFileApp stFile -> " + study);
         
-        int totalStudent = jys.condTotalStudent(study);
-		System.out.println("JY_Controller Start totalStudent -> " + totalStudent);
-        JY_Paging page = new JY_Paging(totalStudent, study.getCurrentPage());
-        study.setStart(page.getStart());
-        study.setEnd(page.getEnd());
-        
-        
         List<Study> joinApprovalStudy = jys.studyJoinApproval(study);
 		System.out.println("JY_Controller joinApprovalStudy.size() -> " + joinApprovalStudy.size());
 		
-		model.addAttribute("totalStudent", totalStudent);
+		if(joinApprovalStudy.isEmpty()) {
+	        model.addAttribute("msg", "결과값이 없습니다.");
+	    } else {
+	    	study.setGame_name(joinApprovalStudy.get(0).getGame_name());
+			study.setStudy_maxperson(joinApprovalStudy.get(0).getStudy_maxperson());
+			study.setStudy_appperson(joinApprovalStudy.get(0).getStudy_appperson());
+	    }
+		
+		List<Study> sjaForm = jys.studyJoinAppForm(study);
+		System.out.println("JY_Controller sjaForm.size() -> " + sjaForm.size());
+
 		model.addAttribute("joinApprovalStudy", joinApprovalStudy);
 		model.addAttribute("study", study);
-		model.addAttribute("page", page);
+		model.addAttribute("sjaForm", sjaForm);
 		
 		return "JY_views/groupAgree";
+	}
+	
+	@RequestMapping(value = "approveJoin")
+	public String approveJoin(Student student, Model model) {
+	    System.out.println("JY_Controller approveJoin start...");
+	    System.out.println("JY_Controller approveJoin student -> " + student);
+	    System.out.println("JY_Controller approveJoin checkboxes ->" + Arrays.toString(student.getCheckboxes()));
+	    
+	    int[] sttmember_key = student.getCheckboxes();
+	    int joinApprove = 0;     
+	    
+	    Student mxPersonSearch = jys.searchMxPerson(student);
+	    String msg = null;
+	    if (mxPersonSearch == null || mxPersonSearch.getStudy_maxperson() <= 0) {
+	        model.addAttribute("msg", "승인가능 인원수를 초과했습니다.");
+	    } else {
+	        for (int i = 0; i < sttmember_key.length; i++) {
+	            student.setMember_key(sttmember_key[i]);
+	            student.setStudy_key(student.getStudy_key());
+	            joinApprove = jys.approveJoin(student);
+	            
+	            model.addAttribute("msg", "승인이 성공적으로 완료되었습니다.");
+	        }
+	    }
+
+	    return "forward:studyJoinApproval";
 	}
 } // class

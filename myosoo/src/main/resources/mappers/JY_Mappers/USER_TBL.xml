@@ -170,45 +170,51 @@
 	<select id="jySearchMyApp" parameterType="int" resultType="Student">
 	    SELECT * FROM student WHERE study_key = #{study_key} AND member_key = #{member_key}
 	</select>
-	
-	<select id="jyCondTotalStudent" resultType="int">
-      	SELECT Count(*) 
-      	FROM study
-      	JOIN student ON study.study_key = student.study_key
-      	WHERE study.member_key = #{member_key}
-      	<choose>
-      		<when test="search == 'select'">
-      			AND study_name = #{study_name}
-      		</when>
-      	</choose>
-   </select>
    
    <select id="jyStudyJoinApproval" parameterType="Study" resultType="Study">
-		SELECT a.*
-   		FROM
-   		(
-   			SELECT rownum rn , s.*
-   			FROM 
-   				(
-   					SELECT  sty.study_key, sty.game_key, sty.member_key, sty.study_month, sty.study_name,
-   						sty.study_startdate, sty.study_enddate, sty.study_maxperson, sty.study_maxlevel, sty.study_bigo,
-   						m.member_name, m.member_tel,
-   						stt.student_date, stt.student_confirm,
-   						g.game_name
-   					FROM    study sty
-   					JOIN student stt ON sty.study_key = stt.study_key
-      				JOIN member m ON stt.member_key = m.member_key
-      				JOIN game g ON sty.game_key = g.game_key
-   					WHERE  sty.member_key = #{member_key} 
-   					<choose>
-			   			<when test="search == 'select'">
-			      			AND sty.study_name = #{study_name}
-			      		</when>
-			        </choose>		        
-   					ORDER BY stt.student_date DESC
-   				) s
-   		) a
-   		WHERE rn BETWEEN #{start} and #{end}
+        SELECT  rownum, sty.study_key, sty.game_key, sty.member_key, sty.study_month, sty.study_name,
+                sty.study_startdate, sty.study_enddate, sty.study_maxperson, sty.study_maxlevel, sty.study_bigo, sty.study_appperson,
+                stt.member_key AS sttmember_key, stt.student_date, stt.student_confirm,
+                m.member_name, m.member_tel,
+                g.game_name
+        FROM    study sty
+        JOIN    student stt ON sty.study_key = stt.study_key
+        JOIN    member m ON stt.member_key = m.member_key
+        JOIN    game g ON sty.game_key = g.game_key
+        WHERE   sty.study_key = #{study_key}            
+        ORDER BY stt.student_date ASC
+	</select>
+	
+	<select id="jyStudyJoinAppForm" parameterType="Study" resultType="Study">
+		SELECT study_name, study_key
+		FROM study
+		WHERE member_key = #{member_key}
+	</select>
+	
+	<update id="updateJoinStudent" parameterType="Student">
+	    UPDATE student
+	    SET
+	        student_confirm = 1,
+	        student_confirmdate = sysdate
+	    WHERE
+	        member_key = #{member_key}
+	    AND
+	    	study_key = #{study_key}
+	</update>
+
+	<update id="updateJoinStudy" parameterType="Student">
+	    UPDATE study
+	    SET
+	        study_maxperson = study_maxperson - 1,
+	        study_appperson = study_appperson + 1
+	    WHERE
+	        study_key = #{study_key}
+	</update>
+	
+	<select id="jySearchMxPerson" parameterType="int" resultType="Student">
+	    SELECT study_maxperson 
+	    FROM study 
+	    WHERE study_key = #{study_key} 
 	</select>
 
 </mapper>

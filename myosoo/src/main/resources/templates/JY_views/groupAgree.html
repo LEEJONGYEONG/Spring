@@ -6,6 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>학습자료 등록</title>
     <th:block th:replace="~{fragments/configure::configure}"></th:block>
+    <script>
+	    function approveJoin() {
+	        // 선택된 체크박스의 값 가져오기
+	        var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+	        var selectedCheckboxes = [];
+	
+	        checkboxes.forEach(function(checkbox) {
+	            var studyKey = parseInt(checkbox.parentElement.querySelector('input[name="study_key"]').value);
+	            selectedCheckboxes.push({ sttmemberKey: checkbox.value, studyKey: studyKey });
+	        });
+	
+	        // 선택된 체크박스가 없으면 알림 표시
+	        if (selectedCheckboxes.length === 0) {
+	            alert('가입승인할 학생을 선택해주세요.'); 
+	            return;
+	        }
+	
+	        // 선택된 항목의 member_key와 study_key를 배열 형태로 전달하여 페이지 이동
+	        var form = document.createElement('form');
+	        form.method = 'POST';
+	        form.action = 'approveJoin';
+	
+	        selectedCheckboxes.forEach(function(item) {
+	            var input1 = document.createElement('input');
+	            input1.type = 'hidden';
+	            input1.name = 'checkboxes';
+	            input1.value = item.sttmemberKey;
+	            form.appendChild(input1);
+	
+	            var input2 = document.createElement('input');
+	            input2.type = 'hidden';
+	            input2.name = 'study_key';
+	            input2.value = item.studyKey;
+	            form.appendChild(input2);
+	        });
+	
+	        document.body.appendChild(form);
+	        form.submit();
+	    }
+	</script>
     <style>
         table {
             border-collapse: separate;
@@ -28,16 +68,17 @@
 <body>
 	<!-- header -->
    	<div class="header"><th:block th:replace="~{fragments/header::headerFragment}"></th:block></div>
-    <div class="bg-blue-100 p-6 max-w-7xl mx-auto rounded-lg">      
+    <div class="bg-blue-100 p-6 max-w-4xl mx-auto rounded-lg">      
         <div class="pt-4">
             <form action="studyJoinApproval">
             	<div class="flex items-center justify-between my-4">
 	                <div class="flex items-center">
-	                    <select name="search1" id="search1" class="ml-2" th:value="${study.search}">
-	                    	<option disabled>학습그룹 선택하기</option>
-	                        <option th:each="study : ${study}" th:value="select" 
-	                        	th:selected="${study.search} == 'select'" th:text="${study.study_name}"></option>
-	                    </select>
+	                    <select name="study_key" id="search" class="ml-2">
+						    <option selected disabled>학습그룹 선택하기</option>
+						    <th:block th:each="study : ${sjaForm}">
+						        <option th:value="${study.study_key}" th:text="${study.study_name}"></option>
+						    </th:block>
+						</select>
 	                </div>
 	                <div>
 	                    <button type="submit" class="bg-blue-500 text-white px-4 py-1 rounded">조회하기</button>
@@ -45,16 +86,18 @@
 	            </div>
 	            <div class="flex items-center justify-between my-4">
 	            	<p th:text="'*게임콘텐츠명 : ' + ${study.game_name}"></p>
-	            	<p th:text="'*구독가능인원 : ' + ${study.study_maxperson} + '명'"></p>
+	            	<p th:text="'*구독가능 인원 : ' + ${study.study_maxperson} + '명'"></p>
+	            	<p th:text="'*기존승인 인원 : ' + ${study.study_appperson} + '명'"></p>
 	            </div>
 	            <div>
 	            	<p>신규가입 신청 현황</p>
+	            	<p th:if="${msg != null}" th:text="${msg}"></p>
 	            </div>
             </form>
             <table class="w-full text-sm text-center text-gray-500 mb-4">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr>
-                        <th scope="col" class="py-2 px-0 w-24 h-12">No</th>
+                        <th scope="col" class="py-3 px-0 w-28 h-12">NO</th>
                         <th scope="col" class="py-3 px-0 w-28 h-12">학생이름</th>
                         <th scope="col" class="py-3 px-0 w-28 h-12">학생연락처</th>
                         <th scope="col" class="py-3 px-0 w-28 h-12">승인요청일자</th>
@@ -65,39 +108,23 @@
                 	<th:block th:each="study : ${joinApprovalStudy}">
                 		<th:block th:if="${study.student_confirm == 0}">
 		                    <tr class="bg-white border-b ">
-		                        <td class="py-4 px-0 w-64 h-28"><p class="w-100% break-all"></p></td>
+		                        <td class="py-4 px-0 w-24 h-28"><p class="w-100% break-all" th:text="${study.rownum}"></p></td>
 		                        <td class="py-4 px-0 w-24 h-28"><p class="w-100% break-all" th:text="${study.member_name}"></p></td>
 		                        <td class="py-4 px-0 w-24 h-28"><p class="w-100% break-all" th:text="${study.member_tel}"></p></td>
 		                        <td class="py-4 px-0 w-24 h-28"><p th:text="${#dates.format(study.student_date, 'yyyy.MM.dd')}"></p></td>
-		                        <td ><input class="ml-6" type="checkbox" id="checkbox1" name="checkbox1" th:value="${study.student_confirm}"></td>
+		                        <td>
+		                        	<input class="ml-6" type="checkbox" id="checkbox1" name="checkboxes" th:value="${study.sttmember_key}">
+		                        	<input type="hidden" name="study_key" th:value="${study.study_key}">	
+		                        </td>
 		                    </tr>
 	                    </th:block>
 	             	</th:block>
                 </tbody>
             </table>
-            <button type="button" class="bg-blue-500 text-white px-4 py-1 rounded">저장하기</button>
-            <nav aria-label="Page navigation example" class="text-center">
-			    <ul class="inline-flex -space-x-px text-sm">
-			        <li th:if="${page.startPage > page.pageBlock}">
-			            <a th:href="@{studyJoinApproval(currentPage=${page.startPage - page.pageBlock}, search=${study.search})}"
-			               class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-			                이전
-			            </a>
-			        </li>
-			        <li th:each="i : ${#numbers.sequence(page.startPage, page.endPage)}">
-			            <a th:href="@{studyJoinApproval(currentPage=${i}, search=${study.search})}"
-			               class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-			                [[${i}]]
-			            </a>
-			        </li>
-			        <li th:if="${page.endPage < page.totalPage}">
-			            <a th:href="@{studyJoinApproval(currentPage=${page.startPage + page.pageBlock}, search=${study.search})}"
-			               class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-			                다음
-			            </a>
-			        </li>
-			    </ul>
-			</nav>
+            <div class="text-center">
+			    <button type="button" class="bg-blue-500 text-white px-4 py-1 rounded" th:onclick="approveJoin()">승인하기</button>
+			</div>
+            
         </div>
     </div>
     <div class="footer"><th:block th:replace="~{fragments/footer::footerFragment}"></th:block></div>

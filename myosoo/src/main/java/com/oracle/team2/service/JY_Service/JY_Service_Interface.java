@@ -28,8 +28,12 @@ public interface JY_Service_Interface {
 
 	boolean searchMyApp(Student student);
 
-	int condTotalStudent(Study study);
-
 	List<Study> studyJoinApproval(Study study);
+
+	List<Study> studyJoinAppForm(Study study);
+
+	int approveJoin(Student student);
+
+	Student searchMxPerson(Student student);
 
 }

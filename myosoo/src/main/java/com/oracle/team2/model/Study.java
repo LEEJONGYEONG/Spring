@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data // 학습그룹
 public class Study {
+	private int rownum; // 숫자출력
 	private int study_key; // 학습그룹 일련번호(PK)
 	private int game_key; // 게임콘텐츠 일련번호(FK)
 	private int member_key; // 교육자회원일련번호(FK)
@@ -16,6 +17,8 @@ public class Study {
 	private int study_maxperson; // T/O(정원 수)
 	private int study_maxlevel; // 최대레벨
 	private String study_bigo; // 비고
+	private int study_appperson; // 승인된 인원수
+	private int sttmember_key; // member table : 학생회원 일련번호
 	private String member_name; // member table : 학생이름
 	private String member_tel; // member table : 휴대폰번호
 	private String game_name; // game table : 게임콘텐츠명
