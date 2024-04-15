@@ -28,12 +28,14 @@ public class JY_Controller {
 	private final JY_Service_Interface  jys;
 	private final CommonController cc;
 	
+	/** 학습자료 등록 폼 -관리자- */
 	@RequestMapping(value = "stFileInsertView")
 	public String stFileInsertForm() {
 		
 		return "JY_views/stFile";
 	}
 	
+	/** 학습자료 등록하기 -관리자- */
 	@PostMapping(value = "stFileInsert")
 	public String stFileInsert(StFile stFile, Model model, HttpSession session, 
 	        @RequestParam(value = "file") MultipartFile file) {    
@@ -61,6 +63,7 @@ public class JY_Controller {
 	    return "forward:stFileInsertView";
 	}
 	
+	/** 학습자료 리스트 -관리자- */
 	@RequestMapping(value = "stFileListView")
 	public String stFileList(StFile stFile, Model model) {
 		System.out.println("JY_Controller stFileList Start...");
@@ -92,6 +95,7 @@ public class JY_Controller {
 		return "JY_views/stFileList";
 	}
 	
+	/** 학습자료 상세보기 -관리자- */
 	@GetMapping(value = "stFileDetailView")
 	public String stFileDetail(StFile stFile, Model model) {
 		System.out.println("JY_Controller stFileDetail start...");
@@ -111,6 +115,7 @@ public class JY_Controller {
 		return "JY_views/stFileDetail";
 	}
 	
+	/** 학습자료 지우기 -관리자- */
 	@RequestMapping(value = "stFileDelete")
 	public String stFileDelete(StFile stFile) {
 		System.out.println("JY_Controller stFileDelete start...");
@@ -130,6 +135,7 @@ public class JY_Controller {
 		return "JY_views/stFileUpdate";
 	}
 	
+	/** 학습자료 수정하기 -관리자- */
 	@PostMapping(value = "stFileUpdate")
 	public String stFileUpdate(StFile stFile, Model model, HttpSession session, 
 	        @RequestParam(value = "file") MultipartFile file) {
@@ -153,6 +159,7 @@ public class JY_Controller {
 		return "forward:stFileListView";
 	}
 	
+	/** 학습그룹 리스트 -학습자- */
 	@RequestMapping(value = "studyGroupAppSearch")
 	public String studyGroupNameSearch(Study study, Model model) {
 		System.out.println("JY_Controller studyGroupNameSearch Start...");
@@ -185,6 +192,7 @@ public class JY_Controller {
 		return "JY_views/studyGroupApplication";
 	}
 	
+	/** 학습그룹 신청하기 -학습자- */
 	@RequestMapping(value = "studyGroupApp")
 	public String studyGroupApp(Student student, HttpSession session , Model model) {
 		System.out.println("JY_Controller stFileApp start...");
@@ -207,6 +215,7 @@ public class JY_Controller {
 		return "forward:studyGroupAppSearch";
 	}
 	
+	/** 학습그룹 신청하기 -학습자- */
 	@RequestMapping(value = "studyJoinAppForm")
 	public String studyJoinAppForm(Study study, Model model, HttpSession session) {
 		System.out.println("JY_Controller studyJoinAppForm start...");
@@ -225,6 +234,7 @@ public class JY_Controller {
 		return "JY_views/groupAgree";
 	}
 	
+	/** 내 학습그룹 신청자 리스트 -교육자- */
 	@RequestMapping(value = "studyJoinApproval")
 	public String studyJoinApproval(Study study, Model model, HttpSession session) {
 		System.out.println("JY_Controller studyJoinApproval start...");
@@ -237,7 +247,7 @@ public class JY_Controller {
 		System.out.println("JY_Controller joinApprovalStudy.size() -> " + joinApprovalStudy.size());
 		
 		if(joinApprovalStudy.isEmpty()) {
-	        model.addAttribute("msg", "결과값이 없습니다.");
+	        model.addAttribute("msg", "가입신청이 없습니다.");
 	    } else {
 	    	study.setGame_name(joinApprovalStudy.get(0).getGame_name());
 			study.setStudy_maxperson(joinApprovalStudy.get(0).getStudy_maxperson());
@@ -254,6 +264,7 @@ public class JY_Controller {
 		return "JY_views/groupAgree";
 	}
 	
+	/** 내 학습그룹 신청자 승인 -교육자- */
 	@RequestMapping(value = "approveJoin")
 	public String approveJoin(Student student, Model model) {
 	    System.out.println("JY_Controller approveJoin start...");
