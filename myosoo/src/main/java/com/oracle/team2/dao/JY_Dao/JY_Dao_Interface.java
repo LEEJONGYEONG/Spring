@@ -4,13 +4,13 @@ import java.util.List;
 
 import com.oracle.team2.model.StFile;
 import com.oracle.team2.model.Student;
-import com.oracle.team2.model.Study;
+import com.oracle.team2.model.Study1;
 
 public interface JY_Dao_Interface {
 
-	int condTotalStudy(Study study);
+	int condTotalStudy(Study1 study);
 
-	List<Study> studyGroupAppSearch(Study study);
+	List<Study1> studyGroupAppSearch(Study1 study);
 
 	int totalStFile(StFile stFile);
 
@@ -28,9 +28,9 @@ public interface JY_Dao_Interface {
 
 	boolean searchMyApp(Student student);
 
-	List<Study> studyJoinApproval(Study study);
+	List<Study1> studyJoinApproval(Study1 study);
 
-	List<Study> studyJoinAppForm(Study study);
+	List<Study1> studyJoinAppForm(Study1 study);
 
 	int approveJoin(Student student);
 

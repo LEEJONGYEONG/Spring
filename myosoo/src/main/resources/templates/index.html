@@ -11,17 +11,15 @@
    th:src="@{js/jquery-3.7.1.min.js}"></script>
 
 <style>
-
-
 body {
-	font-family: 'Noto Sans KR', sans-serif;
+   font-family: 'Noto Sans KR', sans-serif;
 }
 </style>
 
 
 </head>
 
-<body class="bg-green-200">
+<body class="bg-blue-100">
    <!-- header -->
    <th:block th:replace="~{fragments/header::headerFragment}"></th:block>
 
@@ -31,35 +29,59 @@ body {
          <div class="flex mt-4">
 
             <div class="w-full pl-4">
-               <div class="grid grid-cols-3 gap-4">
-                  <img alt="A screenshot of a game with a Go board and stones"
-                     class="rounded-lg" height="150"
-                     src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-sSsOulEoQY3dXtF2RiaK66Ja/user-XZ7Av8ZH1bvGvI0GdH7WwbAs/img-pd3a42jHkCewTGrlkRNkIwfh.png?st=2024-03-25T03%3A36%3A56Z&amp;se=2024-03-25T05%3A36%3A56Z&amp;sp=r&amp;sv=2021-08-06&amp;sr=b&amp;rscd=inline&amp;rsct=image/png&amp;skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&amp;sktid=a48cca56-e6da-484e-a814-9c849652bcb3&amp;skt=2024-03-24T22%3A00%3A07Z&amp;ske=2024-03-25T22%3A00%3A07Z&amp;sks=b&amp;skv=2021-08-06&amp;sig=Kzcn5Rb61caijBtBcLheqF5SH52Y4/mrzZ%2BMuw3G4c0%3D"
-                     width="150" /> <img
-                     alt="A mobile game screenshot featuring cartoon characters in a forest"
-                     class="rounded-lg" height="150"
-                     src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-sSsOulEoQY3dXtF2RiaK66Ja/user-XZ7Av8ZH1bvGvI0GdH7WwbAs/img-51IKvbYFruoNcuCab7Ezs1as.png?st=2024-03-25T03%3A37%3A00Z&amp;se=2024-03-25T05%3A37%3A00Z&amp;sp=r&amp;sv=2021-08-06&amp;sr=b&amp;rscd=inline&amp;rsct=image/png&amp;skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&amp;sktid=a48cca56-e6da-484e-a814-9c849652bcb3&amp;skt=2024-03-24T21%3A05%3A45Z&amp;ske=2024-03-25T21%3A05%3A45Z&amp;sks=b&amp;skv=2021-08-06&amp;sig=wcMYvuZcBBS%2BAMtznEzUlgtdEhTZWic4FAVJ4En2cfw%3D"
-                     width="150" /> <img
-                     alt="A cover of a book or educational material with cartoon characters"
-                     class="rounded-lg" height="150"
-                     src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-sSsOulEoQY3dXtF2RiaK66Ja/user-XZ7Av8ZH1bvGvI0GdH7WwbAs/img-eV2HhJfc7EKi589FdNJetg5G.png?st=2024-03-25T03%3A36%3A57Z&amp;se=2024-03-25T05%3A36%3A57Z&amp;sp=r&amp;sv=2021-08-06&amp;sr=b&amp;rscd=inline&amp;rsct=image/png&amp;skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&amp;sktid=a48cca56-e6da-484e-a814-9c849652bcb3&amp;skt=2024-03-24T21%3A48%3A00Z&amp;ske=2024-03-25T21%3A48%3A00Z&amp;sks=b&amp;skv=2021-08-06&amp;sig=IFWa75xCdJ9TzDTCZRamaDuZrQjGiO4VlFjNWdCah%2BA%3D"
-                     width="150" />
+               <div
+                  class="grid grid-cols-3 gap-4 flex items-center justify-center">
+                  <div > <h2>바둑 교육</h2>
+                     <a href="https://textbookmedia.gimmyoung.com/baduk/"
+                        class="flex items-center space-x-3 rtl:space-x-reverse"> <img
+                        src="img/badukchamgo.png" class="rounded-lg" alt="badukchamgo" />
+                     </a> <a href="https://www.youtube.com/@user-gh5cq5wn7s"
+                        class="flex items-center space-x-3 rtl:space-x-reverse mt-3">
+                        <img src="img/badukstudy.png" class="rounded-lg"
+                        alt="badukstudy" />
+                     </a>
+                  </div>
+                  <div>
+                  <h2>바둑 게임</h2>
+                     <a href="https://www.cosumi.net/ko/"
+                        class="flex items-center space-x-3 rtl:space-x-reverse mt-1">
+                        <img src="img/cosumiAi.png" class="rounded-lg" alt="cosumiAi" />
+                     </a>
+                  </div>
+                  <div>
+                  <h2>바둑 관련 유튜브</h2>
+                     <div class="flex items-center justify-center rounded-lg border-2 gap-4">
+                        <a href="https://www.youtube.com/@baduk1"
+                           class="flex items-center space-x-3 rtl:space-x-reverse my-2">
+                           <img src="img/badukyou2.png" class="rounded-lg" alt="badukyou2" />
+                        </a> <a href="https://www.youtube.com/@TheMylove1244"
+                           class="flex items-center space-x-3 rtl:space-x-reverse my-2">
+                           <img src="img/badukyou3.png" class="rounded-lg" alt="badukyou3" />
+                        </a>
+                     </div>
+                     <div class="video-container ml-2 mt-3">
+                        <iframe width="450" height="225"
+                           src="https://www.youtube.com/embed/hUR0ezNT9DE?si=maAcGf9dZOkhwTr2"
+                           title="YouTube video player" frameborder="0"
+                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                           referrerpolicy="strict-origin-when-cross-origin"
+                           allowfullscreen></iframe>
+                     </div>
+
+                  </div>
+
+
                </div>
-               <div class="bg-green-500 text-white rounded-lg p-4 mt-4">
-                  <div class="text-lg">1.교육자료 예시 사이트입니다</div>
-                  <div class="text-lg">(교육자료 소개 게시판 참조하세요)</div>
-                  <div class="text-sm mt-2">
-                     https://textbookmedia.gimmyoung.com/baduk/</div>
-                  <div class="text-sm">
-                     https://www.youtube.com/watch?v=4Gt-wj21PII</div>
-               </div>
+
                <div class="flex justify-between items-center mt-4"></div>
             </div>
          </div>
       </div>
    </div>
    <!-- footer -->
-   <div class="footer"><th:block th:replace="~{fragments/footer::footerFragment}"></th:block></div>
+   <div class="footer mt-auto">
+      <th:block th:replace="~{fragments/footer::footerFragment}"></th:block>
+   </div>
 </body>
 
 </html>

@@ -14,10 +14,19 @@ public class Board {
 	private String board_writer; // 작성자
 	private String board_content; // 작성내용
 	private String board_file; // 첨부파일
+	private String board_fileaddr; // 첨부파일
 	private int board_see; // 조회수
 	private int board_comcount; // 댓글수
 	private Date board_regdate; // 등록일자
+	private Date board_update; // 수정일자
 	private int board_iscomment; // 답변여부(없음 0 / 있음 1)
+	
+	// 페이징용
+	private String pageNum;
+	private int start;
+	private int end;
+	private int rn;
+	private String currentPage;	
 
 	
 

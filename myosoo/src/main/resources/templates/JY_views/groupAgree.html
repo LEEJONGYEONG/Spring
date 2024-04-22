@@ -85,7 +85,7 @@
 	                </div>
 	            </div>
 	            <div class="flex items-center justify-between my-4">
-	            	<p th:text="'*게임콘텐츠명 : ' + ${study.game_name}"></p>
+	            	<p th:text="${study.game_name} == null? '*게임콘텐츠명 : ' : '*게임콘텐츠명 : ' + ${study.game_name}"></p>
 	            	<p th:text="'*구독가능 인원 : ' + ${study.study_maxperson} + '명'"></p>
 	            	<p th:text="'*기존승인 인원 : ' + ${study.study_appperson} + '명'"></p>
 	            </div>
@@ -127,6 +127,7 @@
             
         </div>
     </div>
-    <div class="footer"><th:block th:replace="~{fragments/footer::footerFragment}"></th:block></div>
+   <!-- footer -->
+   <div class="footer mt-auto"><th:block th:replace="~{fragments/footer::footerFragment}"></th:block></div>        
 </body>
 </html>

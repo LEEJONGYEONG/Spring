@@ -8,7 +8,7 @@ import com.oracle.team2.dao.DY_Dao.DY_Dao_Interface;
 import com.oracle.team2.dao.JY_Dao.JY_Dao_Interface;
 import com.oracle.team2.model.StFile;
 import com.oracle.team2.model.Student;
-import com.oracle.team2.model.Study;
+import com.oracle.team2.model.Study1;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +19,7 @@ public class JY_ServiceImpl implements JY_Service_Interface {
 	private final JY_Dao_Interface jyd;
 
 	@Override
-	public int condTotalStudy(Study study) {
+	public int condTotalStudy(Study1 study) {
 		int totalStudyCount = 0;
 		System.out.println("JY_ServiceImpl condTotalStudy Start...");
 		totalStudyCount = jyd.condTotalStudy(study);
@@ -29,8 +29,8 @@ public class JY_ServiceImpl implements JY_Service_Interface {
 	}
 
 	@Override
-	public List<Study> studyGroupAppSearch(Study study) {
-		List<Study> searchStudyGroupApp = null;
+	public List<Study1> studyGroupAppSearch(Study1 study) {
+		List<Study1> searchStudyGroupApp = null;
 		System.out.println("JY_ServiceImpl studyGroupAppSearch Start...");
 		searchStudyGroupApp = jyd.studyGroupAppSearch(study);
 		System.out.println("JY_ServiceImpl studyGroupAppSearch searchStudyGroupApp.size() -> " + searchStudyGroupApp.size());
@@ -113,8 +113,8 @@ public class JY_ServiceImpl implements JY_Service_Interface {
 	}
 
 	@Override
-	public List<Study> studyJoinApproval(Study study) {
-		List<Study> joinApprovalStudy = null;
+	public List<Study1> studyJoinApproval(Study1 study) {
+		List<Study1> joinApprovalStudy = null;
 		System.out.println("JY_ServiceImpl studyJoinApproval start...");
 		joinApprovalStudy = jyd.studyJoinApproval(study);
 		
@@ -122,8 +122,8 @@ public class JY_ServiceImpl implements JY_Service_Interface {
 	}
 
 	@Override
-	public List<Study> studyJoinAppForm(Study study) {
-		List<Study> sjaForm = null;
+	public List<Study1> studyJoinAppForm(Study1 study) {
+		List<Study1> sjaForm = null;
 		System.out.println("JY_ServiceImpl studyJoinAppForm start...");
 		sjaForm = jyd.studyJoinAppForm(study);
 		

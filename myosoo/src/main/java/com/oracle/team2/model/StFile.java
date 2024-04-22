@@ -32,5 +32,4 @@ public class StFile {
 			
 		// Page 정보
 		private String currentPage;
-	
 }

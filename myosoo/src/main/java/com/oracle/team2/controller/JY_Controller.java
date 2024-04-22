@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.oracle.team2.model.StFile;
 import com.oracle.team2.model.Student;
-import com.oracle.team2.model.Study;
+import com.oracle.team2.model.Study1;
 import com.oracle.team2.service.JY_Service.JY_Paging;
 import com.oracle.team2.service.JY_Service.JY_Service_Interface;
 
@@ -161,7 +161,7 @@ public class JY_Controller {
 	
 	/** 학습그룹 리스트 -학습자- */
 	@RequestMapping(value = "studyGroupAppSearch")
-	public String studyGroupNameSearch(Study study, Model model) {
+	public String studyGroupNameSearch(Study1 study, Model model) {
 		System.out.println("JY_Controller studyGroupNameSearch Start...");
 		System.out.println("JY_Controller Start study -> " + study);
 	    if (study.getKeyword1() == null && study.getKeyword2() == null) {
@@ -181,7 +181,7 @@ public class JY_Controller {
 		study.setStart(page.getStart());
 		study.setEnd(page.getEnd());
 				
-		List<Study> searchStudyGroupApp = jys.studyGroupAppSearch(study);
+		List<Study1> searchStudyGroupApp = jys.studyGroupAppSearch(study);
 		System.out.println("JY_Controller searchStudyGroupApp.size() -> " + searchStudyGroupApp.size());
 		
 		model.addAttribute("totalStudy", totalStudy);
@@ -193,38 +193,43 @@ public class JY_Controller {
 	}
 	
 	/** 학습그룹 신청하기 -학습자- */
-	@RequestMapping(value = "studyGroupApp")
-	public String studyGroupApp(Student student, HttpSession session , Model model) {
-		System.out.println("JY_Controller stFileApp start...");
+	   @RequestMapping(value = "studyGroupApp")
+	   public String studyGroupApp(Student student, HttpSession session , Model model) {
+	      System.out.println("JY_Controller stFileApp start...");
 
-		int member_key = (int) session.getAttribute("member_key");
-        student.setMember_key(member_key);
-        System.out.println("JY_Controller stFileApp stFile -> " + student);
-        
-        boolean myAppSearch = jys.searchMyApp(student);
-        String resultMsg = null;
-        System.out.println("JY_Controller stFileApp myAppSearch -> " + myAppSearch);
-        if (myAppSearch) {
-        	model.addAttribute("resultMsg" , "이미 가입신청한 학습그룹입니다.");
-        } else {
-        	int appStudyGroup = jys.studyGroupApp(student);
-    		System.out.println("JY_Controller stFileApp appStudyGroup -> " + appStudyGroup);
-    		model.addAttribute("resultMsg" , "학습그룹 가입신청이 완료되었습니다.");
-        }
+	      int member_key = (int) session.getAttribute("member_key");
+	        student.setMember_key(member_key);
+	        System.out.println("JY_Controller stFileApp stFile -> " + student);
+	        
+	        boolean myAppSearch = jys.searchMyApp(student);
+	        Student mxPersonSearch = jys.searchMxPerson(student);
+	        String resultMsg = null;
+	        System.out.println("JY_Controller stFileApp myAppSearch -> " + myAppSearch);
+	        if (myAppSearch) {
+	           model.addAttribute("resultMsg" , "이미 가입신청한 학습그룹입니다.");
+	           return "forward:studyGroupAppSearch";
+	        } else if (mxPersonSearch == null || mxPersonSearch.getStudy_maxperson() <= 0) {
+	           model.addAttribute("resultMsg" , "TO가 없습니다.");
+	           return "forward:studyGroupAppSearch";
+	        } else {
+	           int appStudyGroup = jys.studyGroupApp(student);
+	          System.out.println("JY_Controller stFileApp appStudyGroup -> " + appStudyGroup);
+	          model.addAttribute("resultMsg" , "학습그룹 가입신청이 완료되었습니다.");
+	        }
 
-		return "forward:studyGroupAppSearch";
-	}
+	      return "forward:studyGroupAppSearch";
+	   }
 	
-	/** 학습그룹 신청하기 -학습자- */
+	/** 학습그룹 승인하기 폼 -교육자- */
 	@RequestMapping(value = "studyJoinAppForm")
-	public String studyJoinAppForm(Study study, Model model, HttpSession session) {
+	public String studyJoinAppForm(Study1 study, Model model, HttpSession session) {
 		System.out.println("JY_Controller studyJoinAppForm start...");
 		
 		int member_key = (int) session.getAttribute("member_key");
 		study.setMember_key(member_key);
         System.out.println("JY_Controller stFileApp stFile -> " + study);
 		
-		List<Study> sjaForm = jys.studyJoinAppForm(study);
+		List<Study1> sjaForm = jys.studyJoinAppForm(study);
 		System.out.println("JY_Controller sjaForm.size() -> " + sjaForm.size());
 		
 		model.addAttribute("sjaForm", sjaForm);
@@ -236,14 +241,14 @@ public class JY_Controller {
 	
 	/** 내 학습그룹 신청자 리스트 -교육자- */
 	@RequestMapping(value = "studyJoinApproval")
-	public String studyJoinApproval(Study study, Model model, HttpSession session) {
+	public String studyJoinApproval(Study1 study, Model model, HttpSession session) {
 		System.out.println("JY_Controller studyJoinApproval start...");
 		
 		int member_key = (int) session.getAttribute("member_key");
 		study.setMember_key(member_key);
         System.out.println("JY_Controller stFileApp stFile -> " + study);
         
-        List<Study> joinApprovalStudy = jys.studyJoinApproval(study);
+        List<Study1> joinApprovalStudy = jys.studyJoinApproval(study);
 		System.out.println("JY_Controller joinApprovalStudy.size() -> " + joinApprovalStudy.size());
 		
 		if(joinApprovalStudy.isEmpty()) {
@@ -254,7 +259,7 @@ public class JY_Controller {
 			study.setStudy_appperson(joinApprovalStudy.get(0).getStudy_appperson());
 	    }
 		
-		List<Study> sjaForm = jys.studyJoinAppForm(study);
+		List<Study1> sjaForm = jys.studyJoinAppForm(study);
 		System.out.println("JY_Controller sjaForm.size() -> " + sjaForm.size());
 
 		model.addAttribute("joinApprovalStudy", joinApprovalStudy);

@@ -17,7 +17,27 @@ public class Member {
 	private int member_mikey; //회원구분소분류
 	private String member_gender; //성별
 	private Date member_regdate; //가입일자
-	private Date member_update; // 수정일자
+	private Date member_update; //수정일자
 	private int member_isfree; //자격(무료 0/ 무료 1)
-	private int member_isdelete; // 삭제여부
+	private int member_isdelete; //삭제여부(존재 0/ 탈퇴 1)
+	
+	
+	// 페이징용
+	private String pageNum;
+	private int start;
+	private int end;
+	private int rn;
+	private String currentPage;
+	
+	// 조회용
+	private String formatted_regdate;
+	private String startDate;
+	private String endDate;
+	private int opt;
+	private int mikey;
+	private int isfree;
+	private String keyword;
+	private int payment_count;
+	private String member_birth_formatted;
+	private String member_tel_formatted;
 }

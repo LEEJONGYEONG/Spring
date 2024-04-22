@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.oracle.team2.model.StFile;
 import com.oracle.team2.model.Student;
-import com.oracle.team2.model.Study;
+import com.oracle.team2.model.Study1;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +19,7 @@ public class JY_DaoImpl implements JY_Dao_Interface {
 	private final SqlSession session;
 
 	@Override
-	public int condTotalStudy(Study study) {
+	public int condTotalStudy(Study1 study) {
 		int totalStudyCount = 0;
 		System.out.println("JY_DaoImpl condTotalStudy Start...");
 		System.out.println("JY_DaoImpl Start study -> " + study);
@@ -34,8 +34,8 @@ public class JY_DaoImpl implements JY_Dao_Interface {
 	}
 
 	@Override
-	public List<Study> studyGroupAppSearch(Study study) {
-		List<Study> searchStudyGroupApp = null;
+	public List<Study1> studyGroupAppSearch(Study1 study) {
+		List<Study1> searchStudyGroupApp = null;
 		System.out.println("JY_DaoImpl studyGroupAppSearch Start...");
 		System.out.println("JY_DaoImpl studyGroupAppSearch study -> " + study);
 		try {
@@ -166,15 +166,15 @@ public class JY_DaoImpl implements JY_Dao_Interface {
 	}
 
 	@Override
-	public List<Study> studyJoinApproval(Study study) {
+	public List<Study1> studyJoinApproval(Study1 study) {
 		System.out.println("JY_DaoImpl studyJoinApproval start...");
-		List<Study> joinApprovalStudy = null;
+		List<Study1> joinApprovalStudy = null;
 		
 		try {
 			System.out.println("JY_DaoImpl studyJoinApproval study->"+study);
 			joinApprovalStudy = session.selectList("jyStudyJoinApproval", study);
 			
-			for(Study study2 : joinApprovalStudy) {
+			for(Study1 study2 : joinApprovalStudy) {
 				System.out.println("JY_DaoImpl studyJoinApproval study2->"+study2);
 			}
 			
@@ -187,9 +187,9 @@ public class JY_DaoImpl implements JY_Dao_Interface {
 	}
 
 	@Override
-	public List<Study> studyJoinAppForm(Study study) {
+	public List<Study1> studyJoinAppForm(Study1 study) {
 		System.out.println("JY_DaoImpl studyJoinAppForm start...");
-		List<Study> sjaForm = null;
+		List<Study1> sjaForm = null;
 		
 		try {
 			sjaForm = session.selectList("jyStudyJoinAppForm", study);
